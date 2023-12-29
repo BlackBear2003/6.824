@@ -6,10 +6,8 @@ package mr
 // remember to capitalize all names.
 //
 
-import (
-	"os"
-	"strconv"
-)
+import "os"
+import "strconv"
 
 //
 // example to show how to declare the arguments
@@ -25,19 +23,7 @@ type ExampleReply struct {
 }
 
 // Add your RPC definitions here.
-type AssignArgs struct {
-}
 
-type AssignReply struct {
-	Task *Task
-}
-
-type SubmitArgs struct {
-	Task *Task
-}
-
-type SubmitReply struct {
-}
 
 // Cook up a unique-ish UNIX-domain socket name
 // in /var/tmp, for the coordinator.
