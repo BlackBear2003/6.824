@@ -448,6 +448,10 @@ func (rf *Raft) raiseElection() {
 
 	rf.mu.Lock()
 
+	if rf.state == LeaderState {
+		return
+	}
+
 	begin := time.Now()
 	rf.lastElection = begin
 	electionTimeout := rf.randElectionTimeout()
@@ -483,9 +487,10 @@ func (rf *Raft) raiseElection() {
 	rf.mu.Unlock()
 
 	// the last time of this election will be limit
-	for time.Since(begin) < electionTimeout && cnt.GetValue() < need {
-		time.Sleep(10 * time.Millisecond)
-	}
+	// for time.Since(begin) < electionTimeout && cnt.GetValue() < need {
+	// 	time.Sleep(10 * time.Millisecond)
+	// }
+	time.Sleep(electionTimeout)
 
 	// time out and just stop this election
 
