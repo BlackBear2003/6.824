@@ -46,6 +46,7 @@ func (rf *Raft) ticker() {
 }
 
 // 一次选举的超时时间
+// 只有在收到来自可以确认的Leader的心跳的时候才能刷新这个时长
 func (rf *Raft) resetHeartbeatenTimeout() {
 	rf.lastHeartbeaten = time.Now()
 	rf.heartBeatenTimeout = time.Duration(rand.Intn(100)+200) * time.Millisecond

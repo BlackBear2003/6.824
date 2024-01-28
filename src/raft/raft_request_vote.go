@@ -1,48 +1,46 @@
 package raft
 
-func (rf *Raft) requestVoteHandler(cnt *Counter, args *RequestVoteArgs, peer int, need int, me int) {
+import "sync"
+
+func (rf *Raft) requestVoteHandler(cnt *Counter, args *RequestVoteArgs, peer int, need int, me int, once *sync.Once) {
 	reply := &RequestVoteReply{}
 	ok := rf.sendRequestVote(peer, args, reply)
 	if ok {
 		rf.mu.Lock()
 		if reply.VoteGranted {
 			// It should have happened only once?
-			if cnt.IncrementAndGet() == need {
-				// become leader
-				PrettyDebug(dVote, "S%d earned enough votes: %d at election of Term:%d", me, need, args.Term)
-
-				if rf.state == CandidateState && rf.currentTerm == args.Term {
-					rf.state = LeaderState
-					rf.currentTerm++
-					PrettyDebug(dLeader, "S%d become leader in Term:%d!", me, rf.currentTerm)
-					// refresh timeout
-					// begin := time.Now()
-					// rf.lastElection = begin
-					// 2B: initializeLogs when being leader
-					lastLogIndex, _ := rf.getLastLogInfo()
-					for peer := range rf.peers {
-						// ??? need + 1 or not ???
-						rf.nextIndex[peer] = lastLogIndex + 1
-						rf.matchIndex[peer] = 0
+			if cnt.IncrementAndGet() >= need {
+				once.Do(func() {
+					// become leader
+					PrettyDebug(dVote, "S%d earned enough votes: %d at election of Term:%d", me, need, args.Term)
+					if rf.state == CandidateState && rf.currentTerm == args.Term {
+						rf.state = LeaderState
+						// WARN: seems no need to do term++ ?
+						// rf.currentTerm++
+						PrettyDebug(dLeader, "S%d become leader in Term:%d!", me, rf.currentTerm)
+						// 2B: initializeLogs when being leader
+						lastLogIndex, _ := rf.getLastLogInfo()
+						for peer := range rf.peers {
+							rf.nextIndex[peer] = lastLogIndex + 1
+							rf.matchIndex[peer] = 0
+						}
+						PrettyDebug(dLog, "S%d set all peers' nextIndex=%d", me, lastLogIndex+1)
+						// start heartbeat
+						go rf.raiseBroadcast(rf.currentTerm)
+					} else {
+						PrettyDebug(dWarn, "S%d is not a candidate or in the new Term:%d, cannot raise to a leader", me, rf.currentTerm)
 					}
-					PrettyDebug(dLog, "S%d set all peers' nextIndex=%d", me, lastLogIndex+1)
-					// start heartbeat
-					go rf.raiseBroadcast(rf.currentTerm)
-				} else {
-					PrettyDebug(dWarn, "S%d is no longer a candidate or in the new Term:%d, cannot raise to a leader", me, rf.currentTerm)
-				}
+				})
 			}
 		}
 		if reply.Term > args.Term {
-			PrettyDebug(dVote, "S%d receive higher term(%d > %d) from S%d, set back to Follower", me, reply.Term, args.Term, peer)
+			PrettyDebug(dVote, "S%d receive higher term(%d > %d) from S%d", me, reply.Term, args.Term, peer)
 			if rf.state == CandidateState && rf.currentTerm == args.Term {
-				PrettyDebug(dCandidate, "S%d set back to Follower", me)
 				rf.updateTermPassively(reply.Term)
 				cnt.Clear()
 			} else {
 				PrettyDebug(dWarn, "S%d is not a candidate or in the new Term:%d, this won't affect", me, rf.currentTerm)
 			}
-
 		}
 		rf.mu.Unlock()
 	}
@@ -78,8 +76,9 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	if rf.votedFor == -1 || rf.votedFor == args.CandidateId {
 		lastLogIndex, lastLogTerm := rf.getLastLogInfo()
 		PrettyDebug(dVote, "S%d never voted OR has voted to S%d", rf.me, args.CandidateId)
-		if lastLogTerm < args.Term ||
-			(lastLogTerm == args.Term && lastLogIndex <= args.LastLogIndex) {
+		if lastLogTerm < args.LastLogTerm ||
+			(lastLogTerm == args.LastLogTerm && lastLogIndex <= args.LastLogIndex) {
+			PrettyDebug(dTerm, "S%d lastLogTerm:%d args.LastLogTerm:%d", rf.me, lastLogTerm, args.LastLogTerm)
 			PrettyDebug(dVote, "S%d <- S%d(at least up to date), vote for S%d!", rf.me, args.CandidateId, args.CandidateId)
 			reply.VoteGranted = true
 			rf.votedFor = args.CandidateId

@@ -32,6 +32,7 @@ func (rf *Raft) raiseElection() {
 		LastLogIndex: lastLogIndex,
 		LastLogTerm:  lastLogTerm,
 	}
+	var once = sync.Once{}
 
 	// call each peer
 	for peer := range rf.peers {
@@ -39,7 +40,7 @@ func (rf *Raft) raiseElection() {
 			continue
 		}
 		PrettyDebug(dVote, "S%d sending requestVote to S%d, Term:%d", rf.me, peer, rf.currentTerm)
-		go rf.requestVoteHandler(cnt, args, peer, need, rf.me)
+		go rf.requestVoteHandler(cnt, args, peer, need, rf.me, &once)
 	}
 
 	// the last time of this election
