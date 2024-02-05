@@ -14,6 +14,9 @@ type AppendEntriesArgs struct {
 type AppendEntriesReply struct {
 	Term    int
 	Success bool
+	XTerm   int // term in the conflicting entry (if any) 同步节点发生冲突位置日志的 Term 任期
+	XIndex  int // index of first entry with that term (if any) 该任期下被同步节点的第一个日志的下标
+	XLen    int // log length 当前被同步节点日志的总长度
 }
 
 func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *AppendEntriesReply) bool {
@@ -60,11 +63,16 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	// 2. Reply false if log doesn’t contain an entry at prevLogIndex whose term matches prevLogTerm
 	// 先匹配上相交点
 	if args.PrevLogIndex > lastLogIndex {
-		PrettyDebug(dLog2, "S%d 's log(index:%d) shorter than prev index%d, refused new entries", rf.me, lastLogIndex, args.PrevLogIndex)
+		PrettyDebug(dLog2, "S%d 's log(index:%d -> XLen) shorter than prev index%d, refused wait for retry", rf.me, lastLogIndex, args.PrevLogIndex)
+		reply.XLen = lastLogIndex
+		reply.XTerm = -1
 		return
 	}
 	if rf.logs[args.PrevLogIndex].Term != args.PrevLogTerm && args.PrevLogTerm != 0 {
-		PrettyDebug(dLog2, "S%d check prev term not matched", rf.me)
+		reply.XLen = lastLogIndex
+		reply.XTerm = rf.logs[args.PrevLogIndex].Term
+		reply.XIndex, _ = rf.getLogIndexesWithTerm(reply.XTerm)
+		PrettyDebug(dLog2, "S%d check prev term not matched, refused wait for retry, XTerm:%d XIndex:%d XLen:%d", rf.me, reply.XTerm, reply.XIndex, reply.XLen)
 		return
 	}
 
@@ -176,6 +184,18 @@ func (rf *Raft) appendEntriesHandler(peer int, term int, args *AppendEntriesArgs
 			}
 		}
 	} else {
+		// 2C optimize log catch up
+		if reply.XTerm == -1 {
+			rf.nextIndex[peer] = reply.XLen + 1
+		} else {
+			_, lastIndex := rf.getLogIndexesWithTerm(reply.XTerm)
+			if lastIndex == -1 {
+				// 没有这个term的
+				rf.nextIndex[peer] = reply.XIndex
+			} else {
+				rf.nextIndex[peer] = lastIndex
+			}
+		}
 		// After a rejection, the leader decrements nextIndex and retries the AppendEntries RPC.
 		if rf.nextIndex[peer] > 1 {
 			rf.nextIndex[peer]--
