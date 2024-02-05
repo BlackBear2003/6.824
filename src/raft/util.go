@@ -18,7 +18,6 @@ func DPrintf(format string, a ...interface{}) (n int, err error) {
 type Counter struct {
 	counter int
 	mu      sync.Mutex
-	cond    *sync.Cond
 }
 
 func (c *Counter) Increment() {

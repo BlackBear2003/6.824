@@ -21,6 +21,7 @@ func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *Ap
 	return ok
 }
 
+// 接收方
 func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply) {
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
@@ -101,6 +102,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	}
 }
 
+// 发送方
 func (rf *Raft) appendEntriesHandler(peer int, term int, args *AppendEntriesArgs) {
 	reply := &AppendEntriesReply{}
 	ok := rf.sendAppendEntries(peer, args, reply)
@@ -179,20 +181,5 @@ func (rf *Raft) appendEntriesHandler(peer int, term int, args *AppendEntriesArgs
 			rf.nextIndex[peer]--
 			PrettyDebug(dLog, "S%d (recv false) set S%d nextIndex=%d matchIndex=%d", rf.me, peer, rf.nextIndex[peer], rf.matchIndex[peer])
 		}
-
-		// lastLogIndex, _ := rf.getLastLogInfo()
-		// preLogIndex := rf.nextIndex[peer] - 1
-		// if lastLogIndex > preLogIndex {
-		// 	PrettyDebug(dLog, "S%d <- S%d Inconsistent logs, retrying.", rf.me, peer)
-		// 	newArgs := &AppendEntriesArgs{
-		// 		Term:         rf.currentTerm,
-		// 		LeaderId:     rf.me,
-		// 		PrevLogTerm:  rf.logs[preLogIndex].Term,
-		// 		PrevLogIndex: preLogIndex,
-		// 		LeaderCommit: rf.commitIndex,
-		// 		Entries:      append([]Entry{}, rf.logs[preLogIndex+1:]...),
-		// 	}
-		// 	go rf.appendEntriesHandler(peer, term, newArgs)
-		// }
 	}
 }
