@@ -40,7 +40,7 @@ func (rf *Raft) ticker() {
 		rf.mu.Unlock()
 
 		// sleep for a tick
-		tick := 30 * time.Millisecond
+		tick := 15 * time.Millisecond
 		time.Sleep(tick)
 	}
 }
@@ -49,17 +49,17 @@ func (rf *Raft) ticker() {
 // 只有在收到来自可以确认的Leader的心跳的时候才能刷新这个时长
 func (rf *Raft) resetHeartbeatenTimeout() {
 	rf.lastHeartbeaten = time.Now()
-	rf.heartBeatenTimeout = time.Duration(rand.Intn(100)+200) * time.Millisecond
+	rf.heartBeatenTimeout = time.Duration(rand.Intn(150)+300) * time.Millisecond
 }
 
 // 一次选举的超时时间
 func (rf *Raft) resetElectionTimeout() {
 	rf.lastElection = time.Now()
-	rf.electionTimeout = time.Duration(rand.Intn(200)+400) * time.Millisecond
+	rf.electionTimeout = time.Duration(rand.Intn(200)+300) * time.Millisecond
 }
 
 // 主动发起心跳的时间间隔
 func (rf *Raft) resetBroadcastTimeout() time.Duration {
-	rf.broadcastTimeout = time.Duration(rand.Intn(20)+100) * time.Millisecond
+	rf.broadcastTimeout = time.Duration(100) * time.Millisecond
 	return rf.broadcastTimeout
 }

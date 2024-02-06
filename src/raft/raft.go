@@ -179,7 +179,7 @@ func (rf *Raft) updateTermPassively(newTerm int) {
 	rf.state = FollowerState
 	// only voted once in a term
 	rf.votedFor = -1
-	// rf.leaderId = -1
+	rf.persist()
 }
 
 // the service using Raft (e.g. a k/v server) wants to start
@@ -218,6 +218,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		Command: command,
 	}
 	rf.logs = append(rf.logs, e)
+	rf.persist()
 	index, term = rf.getLastLogInfo()
 	PrettyDebug(dClient, "S%d receive client command, append to logs index:%d Term:%d", rf.me, index, term)
 

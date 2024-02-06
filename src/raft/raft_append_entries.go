@@ -108,6 +108,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		rf.commitIndex = min(args.LeaderCommit, args.PrevLogIndex+len(args.Entries))
 		PrettyDebug(dLog2, "S%d set commitIndex to %d", rf.me, rf.commitIndex)
 	}
+	rf.persist()
 }
 
 // 发送方
@@ -120,7 +121,7 @@ func (rf *Raft) appendEntriesHandler(peer int, term int, args *AppendEntriesArgs
 	rf.mu.Lock()
 	defer rf.mu.Unlock()
 	if rf.state != LeaderState {
-		PrettyDebug(dWarn, "S%d is not Leader, this RPC -> S%d is useless", rf.me, peer)
+		PrettyDebug(dWarn, "S%d is not Leader, this RPC -> S%d has stopped", rf.me, peer)
 		return
 	}
 	if len(args.Entries) == 0 {
@@ -136,7 +137,6 @@ func (rf *Raft) appendEntriesHandler(peer int, term int, args *AppendEntriesArgs
 	if reply.Term > rf.currentTerm {
 		PrettyDebug(dLeader, "S%d receive higher Term:%d( > %d) from S%d", rf.me, reply.Term, rf.currentTerm, peer)
 		rf.updateTermPassively(reply.Term)
-		// rf.resetHeartbeatenTimeout()
 		return
 	}
 	// reply.Term == currentTerm
@@ -192,7 +192,7 @@ func (rf *Raft) appendEntriesHandler(peer int, term int, args *AppendEntriesArgs
 			if lastIndex == -1 {
 				// 没有这个term的
 				rf.nextIndex[peer] = reply.XIndex
-			} else {
+			} else if lastIndex > 0 {
 				rf.nextIndex[peer] = lastIndex
 			}
 		}

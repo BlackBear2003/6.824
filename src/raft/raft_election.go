@@ -17,6 +17,8 @@ func (rf *Raft) raiseElection() {
 	rf.state = CandidateState
 	rf.votedFor = rf.me
 
+	rf.persist()
+
 	PrettyDebug(dVote, "S%d raising an election at Term:%d", rf.me, rf.currentTerm)
 
 	cnt := &Counter{

@@ -85,6 +85,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 			// heartbeaten only if voted for candidate
 			rf.state = FollowerState
 			rf.resetHeartbeatenTimeout()
+			rf.persist()
 		} else {
 			reply.VoteGranted = false
 			PrettyDebug(dVote, "S%d not vote for S%d for more up-to-date", rf.me, args.CandidateId)
