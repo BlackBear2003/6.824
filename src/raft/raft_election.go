@@ -44,8 +44,4 @@ func (rf *Raft) raiseElection() {
 		PrettyDebug(dVote, "S%d sending requestVote to S%d, Term:%d", rf.me, peer, rf.currentTerm)
 		go rf.requestVoteHandler(cnt, args, peer, need, rf.me, &once)
 	}
-
-	// the last time of this election
-	// time.Sleep(electionTimeout)
-	// time out and just stop this election
 }

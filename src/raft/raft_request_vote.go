@@ -71,6 +71,7 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	if args.Term > rf.currentTerm {
 		rf.updateTermPassively(args.Term)
 	}
+	reply.Term = rf.currentTerm
 	// never voted OR has voted to RPC's original peer
 	// (I guess it is for the '每次RPC都是幂等的' so when duplicate send or receive, it act as same)
 	if rf.votedFor == -1 || rf.votedFor == args.CandidateId {

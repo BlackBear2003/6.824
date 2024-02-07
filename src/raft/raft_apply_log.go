@@ -1,26 +1,32 @@
 package raft
 
-import "time"
+import (
+	"time"
+)
 
 func (rf *Raft) applyLogHandler(applyCh chan ApplyMsg) {
 	for !rf.killed() {
 		time.Sleep(10 * time.Millisecond)
 
-		appliedLogs := []ApplyMsg{}
+		appliedMsgs := []ApplyMsg{}
 		rf.mu.Lock()
 		for rf.commitIndex > rf.lastApplied {
 			rf.lastApplied++
+			if rf.lastApplied <= rf.lastIncludedIndex {
+				continue
+			}
+			PrettyDebug(dClient, "S%d applying log of index:%d{%d %v}", rf.me, rf.lastApplied, rf.getLog(rf.lastApplied).Term, rf.getLog(rf.lastApplied).Command)
 			applied := ApplyMsg{
 				CommandValid: true,
-				Command:      rf.logs[rf.lastApplied].Command,
+				Command:      rf.getLog(rf.lastApplied).Command,
 				CommandIndex: rf.lastApplied,
 			}
-			appliedLogs = append(appliedLogs, applied)
-			PrettyDebug(dClient, "S%d applied log of index:%d(Term:%d)", rf.me, rf.lastApplied, rf.logs[rf.lastApplied].Term)
+			appliedMsgs = append(appliedMsgs, applied)
 		}
 		rf.mu.Unlock()
-		for _, a := range appliedLogs {
-			applyCh <- a
+
+		for _, msg := range appliedMsgs {
+			applyCh <- msg
 		}
 	}
 }

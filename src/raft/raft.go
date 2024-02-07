@@ -20,7 +20,6 @@ package raft
 import (
 	//	"bytes"
 
-	"math"
 	"sync"
 	"sync/atomic"
 	"time"
@@ -99,40 +98,10 @@ type Raft struct {
 	// 2B
 	applyChannel chan ApplyMsg
 	leaderId     int
-}
 
-type Entry struct {
-	Term    int
-	Command interface{}
-}
-
-// Need Lock
-// return last's index and term
-// index = 0 means no logs
-func (rf *Raft) getLastLogInfo() (int, int) {
-	if len(rf.logs) < 1 {
-		return 0, 0
-	}
-	lastLogIndex := len(rf.logs) - 1
-	lastLogTerm := rf.logs[lastLogIndex].Term
-	return lastLogIndex, lastLogTerm
-}
-
-func (rf *Raft) getLogIndexesWithTerm(term int) (firstIdx, lastIdx int) {
-	if term == 0 {
-		return 0, 0
-	}
-	first, last := math.MaxInt, -1
-	for i := 1; i < len(rf.logs); i++ {
-		if rf.logs[i].Term == term {
-			first = min(first, i)
-			last = max(last, i)
-		}
-	}
-	if last == -1 {
-		return -1, -1
-	}
-	return first, last
+	// 2D
+	lastIncludedIndex int // the snapshot replaces all entries up through and including this index, entire log up to the index discarded
+	lastIncludedTerm  int // term of lastIncludedIndex
 }
 
 // return currentTerm and whether this server
@@ -147,24 +116,6 @@ func (rf *Raft) GetState() (int, bool) {
 	term = rf.currentTerm
 	isleader = (rf.state == LeaderState)
 	return term, isleader
-}
-
-// A service wants to switch to snapshot.  Only do so if Raft hasn't
-// have more recent info since it communicate the snapshot on applyCh.
-func (rf *Raft) CondInstallSnapshot(lastIncludedTerm int, lastIncludedIndex int, snapshot []byte) bool {
-
-	// Your code here (2D).
-
-	return true
-}
-
-// the service says it has created a snapshot that has
-// all info up to and including index. this means the
-// service no longer needs the log through (and including)
-// that index. Raft should now trim its log as much as possible.
-func (rf *Raft) Snapshot(index int, snapshot []byte) {
-	// Your code here (2D).
-
 }
 
 // invoke when receiving higher term peer's RPC
@@ -218,10 +169,10 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 		Command: command,
 	}
 	rf.logs = append(rf.logs, e)
-	rf.persist()
-	index, term = rf.getLastLogInfo()
-	PrettyDebug(dClient, "S%d receive client command, append to logs index:%d Term:%d", rf.me, index, term)
 
+	index, term = rf.getLastLogInfo()
+	PrettyDebug(dClient, "S%d receive client command, append to logs index:%d{%d %v}", rf.me, index, term, command)
+	rf.persist()
 	//go rf.raiseBroadcast(term)
 	return index, term, true
 }
@@ -272,7 +223,8 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.currentTerm = 0
 	rf.votedFor = -1
 	rf.logs = make([]Entry, 0)
-	rf.logs = append(rf.logs, Entry{})
+	// add dummy
+	rf.logs = append(rf.logs, Entry{0, nil})
 
 	rf.commitIndex = 0
 	rf.lastApplied = 0
@@ -282,6 +234,10 @@ func Make(peers []*labrpc.ClientEnd, me int,
 
 	// 2B
 	rf.applyChannel = applyCh
+
+	// 2D
+	rf.lastIncludedIndex = 0
+	rf.lastIncludedTerm = 0
 
 	// 2C
 	// initialize from state persisted before a crash

@@ -19,15 +19,27 @@ func (rf *Raft) raiseBroadcast(term int) {
 			continue
 		}
 		preLogIndex := rf.nextIndex[peer] - 1
-		args := &AppendEntriesArgs{
-			Term:         term,
-			LeaderId:     rf.me,
-			PrevLogIndex: preLogIndex,
-			PrevLogTerm:  rf.logs[preLogIndex].Term,
-			LeaderCommit: rf.commitIndex,
-			Entries:      append([]Entry{}, rf.logs[preLogIndex+1:]...),
+		lastLogIndex, _ := rf.getLastLogInfo()
+		if preLogIndex < rf.lastIncludedIndex { // peer落后太多了，已经在snapshot里了，只能直接发动installSnapshot了
+			args := &InstallSnapshotArgs{
+				Term:              rf.currentTerm,
+				LeaderId:          rf.me,
+				LastIncludedIndex: rf.lastIncludedIndex,
+				LastIncludedTerm:  rf.lastIncludedTerm,
+				Data:              rf.persister.snapshot,
+			}
+			go rf.installSnapshotHandler(args, peer)
+		} else {
+			args := &AppendEntriesArgs{
+				Term:         term,
+				LeaderId:     rf.me,
+				PrevLogIndex: preLogIndex,
+				PrevLogTerm:  rf.getLog(preLogIndex).Term,
+				LeaderCommit: rf.commitIndex,
+				Entries:      rf.getLogs(preLogIndex+1, lastLogIndex+1),
+			}
+			go rf.appendEntriesHandler(peer, term, args)
 		}
-		go rf.appendEntriesHandler(peer, term, args)
 	}
 
 	rf.lastBroadcast = time.Now()
