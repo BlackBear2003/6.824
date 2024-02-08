@@ -1,0 +1,898 @@
+1492734 TERM S1 received heartbeat from S0 of Term:55
+1492735 LOG2 S1 's log(index:195 -> XLen) shorter than prev index196, refused wait for retry, return XLen=195
+1492736 LEAD S0 sended heartbeat to S1
+1492737 LOG1 S0 (recv false) set S1 nextIndex=195 matchIndex=0, will retry in next broadcast
+1492779 TERM S2 received heartbeat from S0 of Term:55
+1492779 PERS S2 Saving persistent state to stable storage at Term:55.
+1492781 LEAD S0 sended heartbeat to S2
+1492782 LEAD S0 -> S2 AppendEntries with success
+1492782 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1492782 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1493633 TIMR S0's broadcast timeout, broadcasting for Term:55
+1493634 LEAD S0 raise broadcast to every peer at Term:55
+1493634 LEAD S0 broadcast to others, update broadcast time and timeout
+1493685 TERM S2 received heartbeat from S0 of Term:55
+1493686 PERS S2 Saving persistent state to stable storage at Term:55.
+1493891 TERM S1 received AppendEntries(len=2) from S0 of Term:55 Entries:[{53 2231232795198739396} {53 1050135561689694009}]
+1493893 LOG2 S1 check prev success, replicate entries(len=2) start from prev index:195
+1493893 LOG2 S1 find diff entry from S0 at index:195 diffTerm(me:48, leader:53)
+1493893 LOG2 S1 append entries end to index:196
+1493893 LOG2 S1 commitIndex:194 < leader:196, last new entry:196
+1493894 LOG2 S1 set commitIndex to 196
+1493894 PERS S1 Saving persistent state to stable storage at Term:55.
+1493998 CLNT S1 applying log of index:195{53 2231232795198739396}
+1493999 CLNT S1 applying log of index:196{53 1050135561689694009}
+1494751 TIMR S0's broadcast timeout, broadcasting for Term:55
+1494752 LEAD S0 raise broadcast to every peer at Term:55
+1494753 LEAD S0 broadcast to others, update broadcast time and timeout
+1494782 TERM S1 received AppendEntries(len=2) from S0 of Term:55 Entries:[{53 2231232795198739396} {53 1050135561689694009}]
+1494783 LOG2 S1 check prev success, replicate entries(len=2) start from prev index:195
+1494783 PERS S1 Saving persistent state to stable storage at Term:55.
+1494785 LEAD S0 sended AppendEntries(len=2) to S1
+1494786 LEAD S0 -> S1 AppendEntries with success
+1494786 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1494786 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1494965 TERM S2 received heartbeat from S0 of Term:55
+1494965 PERS S2 Saving persistent state to stable storage at Term:55.
+1494967 LEAD S0 sended heartbeat to S2
+1494968 LEAD S0 -> S2 AppendEntries with success
+1494968 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1494968 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1495894 TIMR S0's broadcast timeout, broadcasting for Term:55
+1495896 LEAD S0 raise broadcast to every peer at Term:55
+1495896 LEAD S0 broadcast to others, update broadcast time and timeout
+1496064 TERM S2 received heartbeat from S0 of Term:55
+1496065 PERS S2 Saving persistent state to stable storage at Term:55.
+1496068 LEAD S0 sended heartbeat to S2
+1496068 LEAD S0 -> S2 AppendEntries with success
+1496068 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1496069 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1496123 TERM S1 received heartbeat from S0 of Term:55
+1496124 PERS S1 Saving persistent state to stable storage at Term:55.
+1496126 LEAD S0 sended heartbeat to S1
+1496126 LEAD S0 -> S1 AppendEntries with success
+1496126 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1496127 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1497013 TIMR S0's broadcast timeout, broadcasting for Term:55
+1497014 LEAD S0 raise broadcast to every peer at Term:55
+1497015 LEAD S0 broadcast to others, update broadcast time and timeout
+1497121 TERM S2 received heartbeat from S0 of Term:55
+1497122 PERS S2 Saving persistent state to stable storage at Term:55.
+1497124 LEAD S0 sended heartbeat to S2
+1497124 LEAD S0 -> S2 AppendEntries with success
+1497124 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1497124 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1497284 TERM S1 received heartbeat from S0 of Term:55
+1497285 PERS S1 Saving persistent state to stable storage at Term:55.
+1497287 LEAD S0 sended heartbeat to S1
+1497287 LEAD S0 -> S1 AppendEntries with success
+1497287 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1497287 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1498126 TIMR S0's broadcast timeout, broadcasting for Term:55
+1498127 LEAD S0 raise broadcast to every peer at Term:55
+1498128 LEAD S0 broadcast to others, update broadcast time and timeout
+1498353 TERM S2 received heartbeat from S0 of Term:55
+1498354 PERS S2 Saving persistent state to stable storage at Term:55.
+1498384 TERM S1 received heartbeat from S0 of Term:55
+1498385 PERS S1 Saving persistent state to stable storage at Term:55.
+1498387 LEAD S0 sended heartbeat to S1
+1498387 LEAD S0 -> S1 AppendEntries with success
+1498387 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1498388 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1499242 TIMR S0's broadcast timeout, broadcasting for Term:55
+1499244 LEAD S0 raise broadcast to every peer at Term:55
+1499245 LEAD S0 broadcast to others, update broadcast time and timeout
+1499262 TERM S1 received heartbeat from S0 of Term:55
+1499263 PERS S1 Saving persistent state to stable storage at Term:55.
+1499265 LEAD S0 sended heartbeat to S1
+1499265 LEAD S0 -> S1 AppendEntries with success
+1499266 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1499266 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1499413 TERM S2 received heartbeat from S0 of Term:55
+1499414 PERS S2 Saving persistent state to stable storage at Term:55.
+1499417 LEAD S0 sended heartbeat to S2
+1499417 LEAD S0 -> S2 AppendEntries with success
+1499418 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1499418 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1500345 TIMR S0's broadcast timeout, broadcasting for Term:55
+1500347 LEAD S0 raise broadcast to every peer at Term:55
+1500347 LEAD S0 broadcast to others, update broadcast time and timeout
+1500447 TERM S1 received heartbeat from S0 of Term:55
+1500448 PERS S1 Saving persistent state to stable storage at Term:55.
+1500450 LEAD S0 sended heartbeat to S1
+1500450 LEAD S0 -> S1 AppendEntries with success
+1500451 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1500451 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1500538 TERM S2 received heartbeat from S0 of Term:55
+1500539 PERS S2 Saving persistent state to stable storage at Term:55.
+1500541 LEAD S0 sended heartbeat to S2
+1500541 LEAD S0 -> S2 AppendEntries with success
+1500541 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1500542 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1501445 TIMR S0's broadcast timeout, broadcasting for Term:55
+1501447 LEAD S0 raise broadcast to every peer at Term:55
+1501448 LEAD S0 broadcast to others, update broadcast time and timeout
+1501632 TERM S2 received heartbeat from S0 of Term:55
+1501633 PERS S2 Saving persistent state to stable storage at Term:55.
+1501635 LEAD S0 sended heartbeat to S2
+1501636 LEAD S0 -> S2 AppendEntries with success
+1501636 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1501636 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1501707 TERM S1 received heartbeat from S0 of Term:55
+1501708 PERS S1 Saving persistent state to stable storage at Term:55.
+1501710 LEAD S0 sended heartbeat to S1
+1501710 LEAD S0 -> S1 AppendEntries with success
+1501710 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1501710 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1502552 TIMR S0's broadcast timeout, broadcasting for Term:55
+1502554 LEAD S0 raise broadcast to every peer at Term:55
+1502554 LEAD S0 broadcast to others, update broadcast time and timeout
+1502684 TERM S1 received heartbeat from S0 of Term:55
+1502685 PERS S1 Saving persistent state to stable storage at Term:55.
+1502688 LEAD S0 sended heartbeat to S1
+1502688 LEAD S0 -> S1 AppendEntries with success
+1502688 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1502688 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1502752 TERM S2 received heartbeat from S0 of Term:55
+1502752 PERS S2 Saving persistent state to stable storage at Term:55.
+1503672 TIMR S0's broadcast timeout, broadcasting for Term:55
+1503673 LEAD S0 raise broadcast to every peer at Term:55
+1503673 LEAD S0 broadcast to others, update broadcast time and timeout
+1503795 TERM S1 received heartbeat from S0 of Term:55
+1503796 PERS S1 Saving persistent state to stable storage at Term:55.
+1503799 LEAD S0 sended heartbeat to S1
+1503799 LEAD S0 -> S1 AppendEntries with success
+1503799 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1503800 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1503827 TERM S2 received heartbeat from S0 of Term:55
+1503828 PERS S2 Saving persistent state to stable storage at Term:55.
+1503829 LEAD S0 sended heartbeat to S2
+1503830 LEAD S0 -> S2 AppendEntries with success
+1503830 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1503830 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1504801 TIMR S0's broadcast timeout, broadcasting for Term:55
+1504802 LEAD S0 raise broadcast to every peer at Term:55
+1504803 LEAD S0 broadcast to others, update broadcast time and timeout
+1504807 TERM S2 received heartbeat from S0 of Term:55
+1504808 PERS S2 Saving persistent state to stable storage at Term:55.
+1504810 LEAD S0 sended heartbeat to S2
+1504810 LEAD S0 -> S2 AppendEntries with success
+1504810 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1504811 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1504996 TERM S1 received heartbeat from S0 of Term:55
+1504997 PERS S1 Saving persistent state to stable storage at Term:55.
+1505001 LEAD S0 sended heartbeat to S1
+1505001 LEAD S0 -> S1 AppendEntries with success
+1505001 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1505001 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1505919 TIMR S0's broadcast timeout, broadcasting for Term:55
+1505921 LEAD S0 raise broadcast to every peer at Term:55
+1505921 LEAD S0 broadcast to others, update broadcast time and timeout
+1505940 TERM S1 received heartbeat from S0 of Term:55
+1505940 PERS S1 Saving persistent state to stable storage at Term:55.
+1505943 LEAD S0 sended heartbeat to S1
+1505943 LEAD S0 -> S1 AppendEntries with success
+1505944 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1505944 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1506190 TERM S2 received heartbeat from S0 of Term:55
+1506191 PERS S2 Saving persistent state to stable storage at Term:55.
+1506193 LEAD S0 sended heartbeat to S2
+1506194 LEAD S0 -> S2 AppendEntries with success
+1506194 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1506194 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1507025 TIMR S0's broadcast timeout, broadcasting for Term:55
+1507029 LEAD S0 raise broadcast to every peer at Term:55
+1507029 LEAD S0 broadcast to others, update broadcast time and timeout
+1507088 TERM S2 received heartbeat from S0 of Term:55
+1507089 PERS S2 Saving persistent state to stable storage at Term:55.
+1507187 TERM S1 received heartbeat from S0 of Term:55
+1507188 PERS S1 Saving persistent state to stable storage at Term:55.
+1507190 LEAD S0 sended heartbeat to S1
+1507190 LEAD S0 -> S1 AppendEntries with success
+1507190 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1507190 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1508160 TIMR S0's broadcast timeout, broadcasting for Term:55
+1508162 LEAD S0 raise broadcast to every peer at Term:55
+1508162 LEAD S0 broadcast to others, update broadcast time and timeout
+1508317 TERM S2 received heartbeat from S0 of Term:55
+1508318 PERS S2 Saving persistent state to stable storage at Term:55.
+1508320 LEAD S0 sended heartbeat to S2
+1508320 LEAD S0 -> S2 AppendEntries with success
+1508320 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1508320 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1509289 TIMR S0's broadcast timeout, broadcasting for Term:55
+1509290 LEAD S0 raise broadcast to every peer at Term:55
+1509291 LEAD S0 broadcast to others, update broadcast time and timeout
+1509348 TERM S2 received heartbeat from S0 of Term:55
+1509348 PERS S2 Saving persistent state to stable storage at Term:55.
+1509349 LEAD S0 sended heartbeat to S2
+1509349 LEAD S0 -> S2 AppendEntries with success
+1509349 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1509349 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1510384 TIMR S0's broadcast timeout, broadcasting for Term:55
+1510385 LEAD S0 raise broadcast to every peer at Term:55
+1510386 LEAD S0 broadcast to others, update broadcast time and timeout
+1510403 TERM S1 received heartbeat from S0 of Term:55
+1510403 PERS S1 Saving persistent state to stable storage at Term:55.
+1510562 TERM S2 received heartbeat from S0 of Term:55
+1510563 PERS S2 Saving persistent state to stable storage at Term:55.
+1510565 LEAD S0 sended heartbeat to S2
+1510566 LEAD S0 -> S2 AppendEntries with success
+1510566 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1510566 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1511476 TIMR S0's broadcast timeout, broadcasting for Term:55
+1511477 LEAD S0 raise broadcast to every peer at Term:55
+1511477 LEAD S0 broadcast to others, update broadcast time and timeout
+1511545 TERM S2 received heartbeat from S0 of Term:55
+1511546 PERS S2 Saving persistent state to stable storage at Term:55.
+1511548 LEAD S0 sended heartbeat to S2
+1511549 LEAD S0 -> S2 AppendEntries with success
+1511549 LOG1 S0 set S2 nextIndex=197 matchIndex=196
+1511549 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1511693 TERM S1 received heartbeat from S0 of Term:55
+1511694 PERS S1 Saving persistent state to stable storage at Term:55.
+1511696 LEAD S0 sended heartbeat to S1
+1511697 LEAD S0 -> S1 AppendEntries with success
+1511697 LOG1 S0 set S1 nextIndex=197 matchIndex=196
+1511697 CMIT S0 newCommitIndex:196.Term:53 at Term:55
+1511888 CLNT S0 receive client command, append to logs index:197{55 6634749874369155446}
+1511889 PERS S0 Saving persistent state to stable storage at Term:55.
+1512586 TIMR S0's broadcast timeout, broadcasting for Term:55
+1512587 LEAD S0 raise broadcast to every peer at Term:55
+1512588 LEAD S0 broadcast to others, update broadcast time and timeout
+1512643 TERM S1 received AppendEntries(len=1) from S0 of Term:55 Entries:[{55 6634749874369155446}]
+1512643 LOG2 S1 check prev success, replicate entries(len=1) start from prev index:197
+1512644 LOG2 S1 append entry at index:197
+1512644 PERS S1 Saving persistent state to stable storage at Term:55.
+1512646 LEAD S0 sended AppendEntries(len=1) to S1
+1512647 LEAD S0 -> S1 AppendEntries with success
+1512647 LOG1 S0 set S1 nextIndex=198 matchIndex=197
+1512647 CMIT S0 newCommitIndex:197 > commitIndex:196 at Term:55
+1512647 CMIT S0 update commitIndex to 197
+1512739 CLNT S0 applying log of index:197{55 6634749874369155446}
+1513702 TIMR S0's broadcast timeout, broadcasting for Term:55
+1513703 LEAD S0 raise broadcast to every peer at Term:55
+1513704 LEAD S0 broadcast to others, update broadcast time and timeout
+1513860 TERM S2 received AppendEntries(len=1) from S0 of Term:55 Entries:[{55 6634749874369155446}]
+1513860 LOG2 S2 check prev success, replicate entries(len=1) start from prev index:197
+1513861 LOG2 S2 append entry at index:197
+1513861 LOG2 S2 commitIndex:196 < leader:197, last new entry:197
+1513861 LOG2 S2 set commitIndex to 197
+1513861 PERS S2 Saving persistent state to stable storage at Term:55.
+1513863 LEAD S0 sended AppendEntries(len=1) to S2
+1513864 LEAD S0 -> S2 AppendEntries with success
+1513864 LOG1 S0 set S2 nextIndex=198 matchIndex=197
+1513864 CMIT S0 newCommitIndex:197 > commitIndex:197 at Term:55
+1513865 CMIT S0 update commitIndex to 197
+1513951 CLNT S2 applying log of index:197{55 6634749874369155446}
+1514795 TIMR S0's broadcast timeout, broadcasting for Term:55
+1514796 LEAD S0 raise broadcast to every peer at Term:55
+1514797 LEAD S0 broadcast to others, update broadcast time and timeout
+1514922 TERM S2 received heartbeat from S0 of Term:55
+1514923 PERS S2 Saving persistent state to stable storage at Term:55.
+1514926 LEAD S0 sended heartbeat to S2
+1514926 LEAD S0 -> S2 AppendEntries with success
+1514926 LOG1 S0 set S2 nextIndex=198 matchIndex=197
+1514927 CMIT S0 newCommitIndex:197 > commitIndex:197 at Term:55
+1514927 CMIT S0 update commitIndex to 197
+1514932 TERM S1 received heartbeat from S0 of Term:55
+1514932 LOG2 S1 commitIndex:196 < leader:197, last new entry:197
+1514933 LOG2 S1 set commitIndex to 197
+1514933 PERS S1 Saving persistent state to stable storage at Term:55.
+1514935 LEAD S0 sended heartbeat to S1
+1514935 LEAD S0 -> S1 AppendEntries with success
+1514935 LOG1 S0 set S1 nextIndex=198 matchIndex=197
+1514935 CMIT S0 newCommitIndex:197 > commitIndex:197 at Term:55
+1514936 CMIT S0 update commitIndex to 197
+1515024 CLNT S1 applying log of index:197{55 6634749874369155446}
+1515915 TIMR S0's broadcast timeout, broadcasting for Term:55
+1515916 LEAD S0 raise broadcast to every peer at Term:55
+1515917 LEAD S0 broadcast to others, update broadcast time and timeout
+1516055 TERM S2 received heartbeat from S0 of Term:55
+1516056 PERS S2 Saving persistent state to stable storage at Term:55.
+1516123 TERM S1 received heartbeat from S0 of Term:55
+1516124 PERS S1 Saving persistent state to stable storage at Term:55.
+1516127 LEAD S0 sended heartbeat to S1
+1516128 LEAD S0 -> S1 AppendEntries with success
+1516128 LOG1 S0 set S1 nextIndex=198 matchIndex=197
+1516128 CMIT S0 newCommitIndex:197 > commitIndex:197 at Term:55
+1516129 CMIT S0 update commitIndex to 197
+1517043 TIMR S0's broadcast timeout, broadcasting for Term:55
+1517044 LEAD S0 raise broadcast to every peer at Term:55
+1517045 LEAD S0 broadcast to others, update broadcast time and timeout
+1517073 TERM S1 received heartbeat from S0 of Term:55
+1517073 PERS S1 Saving persistent state to stable storage at Term:55.
+1517075 LEAD S0 sended heartbeat to S1
+1517075 LEAD S0 -> S1 AppendEntries with success
+1517076 LOG1 S0 set S1 nextIndex=198 matchIndex=197
+1517076 CMIT S0 newCommitIndex:197 > commitIndex:197 at Term:55
+1517076 CMIT S0 update commitIndex to 197
+1517081 TERM S2 received heartbeat from S0 of Term:55
+1517081 PERS S2 Saving persistent state to stable storage at Term:55.
+1517083 LEAD S0 sended heartbeat to S2
+1517084 LEAD S0 -> S2 AppendEntries with success
+1517084 LOG1 S0 set S2 nextIndex=198 matchIndex=197
+1517084 CMIT S0 newCommitIndex:197 > commitIndex:197 at Term:55
+1517084 CMIT S0 update commitIndex to 197
+1518179 TIMR S0's broadcast timeout, broadcasting for Term:55
+1518180 LEAD S0 raise broadcast to every peer at Term:55
+1518181 LEAD S0 broadcast to others, update broadcast time and timeout
+1518250 TERM S2 received heartbeat from S0 of Term:55
+1518251 PERS S2 Saving persistent state to stable storage at Term:55.
+1518252 LEAD S0 sended heartbeat to S2
+1518252 LEAD S0 -> S2 AppendEntries with success
+1518253 LOG1 S0 set S2 nextIndex=198 matchIndex=197
+1518253 CMIT S0 newCommitIndex:197 > commitIndex:197 at Term:55
+1518253 CMIT S0 update commitIndex to 197
+1519291 TIMR S0's broadcast timeout, broadcasting for Term:55
+1519292 LEAD S0 raise broadcast to every peer at Term:55
+1519293 LEAD S0 broadcast to others, update broadcast time and timeout
+1519335 TERM S1 received heartbeat from S0 of Term:55
+1519336 PERS S1 Saving persistent state to stable storage at Term:55.
+1519338 LEAD S0 sended heartbeat to S1
+1519339 LEAD S0 -> S1 AppendEntries with success
+1519339 LOG1 S0 set S1 nextIndex=198 matchIndex=197
+1519339 CMIT S0 newCommitIndex:197 > commitIndex:197 at Term:55
+1519339 CMIT S0 update commitIndex to 197
+1519369 TERM S2 received heartbeat from S0 of Term:55
+1519369 PERS S2 Saving persistent state to stable storage at Term:55.
+1519843 CLNT S0 receive client command, append to logs index:198{55 6019176960964198733}
+1519844 PERS S0 Saving persistent state to stable storage at Term:55.
+1520428 TIMR S0's broadcast timeout, broadcasting for Term:55
+1520430 LEAD S0 raise broadcast to every peer at Term:55
+1520430 LEAD S0 broadcast to others, update broadcast time and timeout
+1520677 TERM S2 received AppendEntries(len=1) from S0 of Term:55 Entries:[{55 6019176960964198733}]
+1520679 LOG2 S2 check prev success, replicate entries(len=1) start from prev index:198
+1520679 LOG2 S2 append entry at index:198
+1520679 PERS S2 Saving persistent state to stable storage at Term:55.
+1520682 LEAD S0 sended AppendEntries(len=1) to S2
+1520682 LEAD S0 -> S2 AppendEntries with success
+1520683 LOG1 S0 set S2 nextIndex=199 matchIndex=198
+1520683 CMIT S0 newCommitIndex:198 > commitIndex:197 at Term:55
+1520683 CMIT S0 update commitIndex to 198
+1520783 CLNT S0 applying log of index:198{55 6019176960964198733}
+1521530 TIMR S0's broadcast timeout, broadcasting for Term:55
+1521532 LEAD S0 raise broadcast to every peer at Term:55
+1521533 LEAD S0 broadcast to others, update broadcast time and timeout
+1522632 TIMR S0's broadcast timeout, broadcasting for Term:55
+1522633 LEAD S0 raise broadcast to every peer at Term:55
+1522634 LEAD S0 broadcast to others, update broadcast time and timeout
+1522722 TERM S2 received heartbeat from S0 of Term:55
+1522722 LOG2 S2 commitIndex:197 < leader:198, last new entry:198
+1522723 LOG2 S2 set commitIndex to 198
+1522723 PERS S2 Saving persistent state to stable storage at Term:55.
+1522726 LEAD S0 sended heartbeat to S2
+1522727 LEAD S0 -> S2 AppendEntries with success
+1522727 LOG1 S0 set S2 nextIndex=199 matchIndex=198
+1522727 CMIT S0 newCommitIndex:198 > commitIndex:198 at Term:55
+1522727 CMIT S0 update commitIndex to 198
+1522766 CLNT S2 applying log of index:198{55 6019176960964198733}
+1522971 CLNT S0 receive client command, append to logs index:199{55 490203541887927372}
+1522973 PERS S0 Saving persistent state to stable storage at Term:55.
+1522974 CLNT S0 receive client command, append to logs index:200{55 4503978533713388297}
+1522974 PERS S0 Saving persistent state to stable storage at Term:55.
+1522976 CLNT S0 receive client command, append to logs index:201{55 7556682776072937046}
+1522976 PERS S0 Saving persistent state to stable storage at Term:55.
+1522977 CLNT S0 receive client command, append to logs index:202{55 7894915533684709696}
+1522977 PERS S0 Saving persistent state to stable storage at Term:55.
+1522978 CLNT S0 receive client command, append to logs index:203{55 2288921882675719885}
+1522978 PERS S0 Saving persistent state to stable storage at Term:55.
+1522979 CLNT S0 receive client command, append to logs index:204{55 3599264004956658085}
+1522979 PERS S0 Saving persistent state to stable storage at Term:55.
+1522979 CLNT S0 receive client command, append to logs index:205{55 3679398016883479818}
+1522980 PERS S0 Saving persistent state to stable storage at Term:55.
+1522980 CLNT S0 receive client command, append to logs index:206{55 9025777832171253471}
+1522981 PERS S0 Saving persistent state to stable storage at Term:55.
+1522981 CLNT S0 receive client command, append to logs index:207{55 6330653491733607826}
+1522982 PERS S0 Saving persistent state to stable storage at Term:55.
+1523726 TIMR S0's broadcast timeout, broadcasting for Term:55
+1523729 LEAD S0 raise broadcast to every peer at Term:55
+1523731 LEAD S0 broadcast to others, update broadcast time and timeout
+1523884 TIMR S1's heartbeaten timeout, be candidate, Term:55
+1523886 TIMR S1's election timeout, raising an election, Term:55
+1523886 PERS S1 Saving persistent state to stable storage at Term:56.
+1523888 VOTE S1 raising an election at Term:56
+1523888 VOTE S1 sending requestVote to S0, Term:56
+1523889 VOTE S1 sending requestVote to S2, Term:56
+1523993 TERM S2 received AppendEntries(len=9) from S0 of Term:55 Entries:[{55 490203541887927372} {55 4503978533713388297} {55 7556682776072937046} {55 7894915533684709696} {55 2288921882675719885} {55 3599264004956658085} {55 3679398016883479818} {55 9025777832171253471} {55 6330653491733607826}]
+1523995 LOG2 S2 check prev success, replicate entries(len=9) start from prev index:199
+1523995 LOG2 S2 append entry at index:199
+1523995 LOG2 S2 append entry at index:200
+1523996 LOG2 S2 append entry at index:201
+1523996 LOG2 S2 append entry at index:202
+1523996 LOG2 S2 append entry at index:203
+1523996 LOG2 S2 append entry at index:204
+1523996 LOG2 S2 append entry at index:205
+1523997 LOG2 S2 append entry at index:206
+1523997 LOG2 S2 append entry at index:207
+1523997 PERS S2 Saving persistent state to stable storage at Term:55.
+1523999 LEAD S0 sended AppendEntries(len=9) to S2
+1523999 LEAD S0 -> S2 AppendEntries with success
+1524000 LOG1 S0 set S2 nextIndex=208 matchIndex=207
+1524000 CMIT S0 newCommitIndex:207 > commitIndex:198 at Term:55
+1524000 CMIT S0 update commitIndex to 207
+1524060 CLNT S0 applying log of index:199{55 490203541887927372}
+1524060 CLNT S0 applying log of index:200{55 4503978533713388297}
+1524061 CLNT S0 applying log of index:201{55 7556682776072937046}
+1524061 CLNT S0 applying log of index:202{55 7894915533684709696}
+1524061 CLNT S0 applying log of index:203{55 2288921882675719885}
+1524061 CLNT S0 applying log of index:204{55 3599264004956658085}
+1524062 CLNT S0 applying log of index:205{55 3679398016883479818}
+1524062 CLNT S0 applying log of index:206{55 9025777832171253471}
+1524062 CLNT S0 applying log of index:207{55 6330653491733607826}
+1524066 SNAP S0 Snapshotting through index 199.
+1524066 SNAP S0 logs:[{0 <nil>} {46 2233008958356454249} {46 1490317240709022871} {46 7549377035290200267} {46 3345157364674248737} {46 5523977810390969353} {53 2231232795198739396} {53 1050135561689694009} {55 6634749874369155446} {55 6019176960964198733} {55 490203541887927372} {55 4503978533713388297} {55 7556682776072937046} {55 7894915533684709696} {55 2288921882675719885} {55 3599264004956658085} {55 3679398016883479818} {55 9025777832171253471} {55 6330653491733607826}]   IncludeIndex:189 IncludeTerm:46
+1524067 SNAP S0 after cutting logs:[{0 <nil>} {55 4503978533713388297} {55 7556682776072937046} {55 7894915533684709696} {55 2288921882675719885} {55 3599264004956658085} {55 3679398016883479818} {55 9025777832171253471} {55 6330653491733607826}]   IncludeIndex:199 IncludeTerm:55
+1524067 PERS S0 Saving persistent state to stable storage at Term:55.
+1524068 SNAP S0 was snapshoted, lastIncludedIndex:199 lastIncludedTerm:55 lastLogIndex:207
+1524840 TIMR S0's broadcast timeout, broadcasting for Term:55
+1524842 LEAD S0 raise broadcast to every peer at Term:55
+1524843 LEAD S0 broadcast to others, update broadcast time and timeout
+1525944 TIMR S0's broadcast timeout, broadcasting for Term:55
+1525946 LEAD S0 raise broadcast to every peer at Term:55
+1525947 LEAD S0 broadcast to others, update broadcast time and timeout
+1526082 TERM S2 received heartbeat from S0 of Term:55
+1526084 LOG2 S2 commitIndex:198 < leader:207, last new entry:207
+1526084 LOG2 S2 set commitIndex to 207
+1526085 PERS S2 Saving persistent state to stable storage at Term:55.
+1526087 LEAD S0 sended heartbeat to S2
+1526088 LEAD S0 -> S2 AppendEntries with success
+1526088 LOG1 S0 set S2 nextIndex=208 matchIndex=207
+1526088 CMIT S0 newCommitIndex:207 > commitIndex:207 at Term:55
+1526089 CMIT S0 update commitIndex to 207
+1526138 CLNT S2 applying log of index:199{55 490203541887927372}
+1526139 CLNT S2 applying log of index:200{55 4503978533713388297}
+1526139 CLNT S2 applying log of index:201{55 7556682776072937046}
+1526139 CLNT S2 applying log of index:202{55 7894915533684709696}
+1526139 CLNT S2 applying log of index:203{55 2288921882675719885}
+1526140 CLNT S2 applying log of index:204{55 3599264004956658085}
+1526140 CLNT S2 applying log of index:205{55 3679398016883479818}
+1526140 CLNT S2 applying log of index:206{55 9025777832171253471}
+1526140 CLNT S2 applying log of index:207{55 6330653491733607826}
+1526143 SNAP S2 Snapshotting through index 199.
+1526144 SNAP S2 logs:[{0 <nil>} {46 2233008958356454249} {46 1490317240709022871} {46 7549377035290200267} {46 3345157364674248737} {46 5523977810390969353} {53 2231232795198739396} {53 1050135561689694009} {55 6634749874369155446} {55 6019176960964198733} {55 490203541887927372} {55 4503978533713388297} {55 7556682776072937046} {55 7894915533684709696} {55 2288921882675719885} {55 3599264004956658085} {55 3679398016883479818} {55 9025777832171253471} {55 6330653491733607826}]   IncludeIndex:189 IncludeTerm:46
+1526144 SNAP S2 after cutting logs:[{0 <nil>} {55 4503978533713388297} {55 7556682776072937046} {55 7894915533684709696} {55 2288921882675719885} {55 3599264004956658085} {55 3679398016883479818} {55 9025777832171253471} {55 6330653491733607826}]   IncludeIndex:199 IncludeTerm:55
+1526145 PERS S2 Saving persistent state to stable storage at Term:55.
+1526145 SNAP S2 was snapshoted, lastIncludedIndex:199 lastIncludedTerm:55 lastLogIndex:207
+1526354 CLNT S0 receive client command, append to logs index:208{55 7580482554782987977}
+1526356 PERS S0 Saving persistent state to stable storage at Term:55.
+1527062 TIMR S0's broadcast timeout, broadcasting for Term:55
+1527063 LEAD S0 raise broadcast to every peer at Term:55
+1527063 LEAD S0 broadcast to others, update broadcast time and timeout
+1527232 SNAP S1 <- S0 Received install snapshot request at Term:56.
+1527234 SNAP S1 Term is higher(55 < 56), rejecting install snapshot request. 
+1527235 SNAP S0 <- S1 Received install snapshot reply at Term:55.
+1527236 TERM S0's Term is lower, updating term to Term:56, setting state to follower. (56 > 55)
+1527236 PERS S0 Saving persistent state to stable storage at Term:56.
+1527313 TERM S2 received AppendEntries(len=1) from S0 of Term:55 Entries:[{55 7580482554782987977}]
+1527314 LOG2 S2 check prev success, replicate entries(len=1) start from prev index:208
+1527314 LOG2 S2 append entry at index:208
+1527314 PERS S2 Saving persistent state to stable storage at Term:55.
+1527316 WARN S0 is not Leader, this RPC -> S2 has stopped
+1527392 TIMR S0's heartbeaten timeout, be candidate, Term:56
+1527392 TIMR S0's election timeout, raising an election, Term:56
+1527392 PERS S0 Saving persistent state to stable storage at Term:57.
+1527394 VOTE S0 raising an election at Term:57
+1527394 VOTE S0 sending requestVote to S1, Term:57
+1527394 VOTE S0 sending requestVote to S2, Term:57
+1527442 VOTE S2 receive request vote from S0 of Term:57
+1527444 TERM S2's Term is lower, updating term to Term:57, setting state to follower. (57 > 55)
+1527444 PERS S2 Saving persistent state to stable storage at Term:57.
+1527445 VOTE S2 never voted OR has voted to S0
+1527445 TERM S2 lastLogTerm:55 args.LastLogTerm:55
+1527446 VOTE S2 <- S0(at least up to date), vote for S0!
+1527446 PERS S2 Saving persistent state to stable storage at Term:57.
+1527448 VOTE S0 earned enough votes: 2 at election of Term:57
+1527448 LEAD S0 become leader in Term:57!
+1527449 LOG1 S0 set all peers' nextIndex=209
+1527449 LEAD S0 raise broadcast to every peer at Term:57
+1527450 LEAD S0 broadcast to others, update broadcast time and timeout
+1527465 TERM S1 received heartbeat from S0 of Term:57
+1527466 TERM S1's Term is lower, updating term to Term:57, setting state to follower. (57 > 56)
+1527466 PERS S1 Saving persistent state to stable storage at Term:57.
+1527466 LOG2 S1 's log(index:197 -> XLen) shorter than prev index208, refused wait for retry, return XLen=197
+1527468 LEAD S0 sended heartbeat to S1
+1527468 LOG1 S0 (recv false) set S1 nextIndex=197 matchIndex=0, will retry in next broadcast
+1527550 VOTE S1 receive request vote from S0 of Term:57
+1527550 VOTE S1 never voted OR has voted to S0
+1527551 TERM S1 lastLogTerm:55 args.LastLogTerm:55
+1527551 VOTE S1 <- S0(at least up to date), vote for S0!
+1527551 PERS S1 Saving persistent state to stable storage at Term:57.
+1528523 TIMR S0's broadcast timeout, broadcasting for Term:57
+1528524 LEAD S0 raise broadcast to every peer at Term:57
+1528524 LEAD S0 broadcast to others, update broadcast time and timeout
+1528662 TERM S2 received heartbeat from S0 of Term:57
+1528663 PERS S2 Saving persistent state to stable storage at Term:57.
+1528690 SNAP S1 <- S0 Received install snapshot request at Term:57.
+1528690 SNAP S1 installed snapshot, lastIncludedIndex:199 lastIncludedTerm:55 lastLogIndex:197
+1528691 PERS S1 Saving persistent state to stable storage at Term:57.
+1528692 SNAP S0 <- S1 Received install snapshot reply at Term:57.
+1529642 TIMR S0's broadcast timeout, broadcasting for Term:57
+1529643 LEAD S0 raise broadcast to every peer at Term:57
+1529644 LEAD S0 broadcast to others, update broadcast time and timeout
+1529763 TERM S1 received AppendEntries(len=9) from S0 of Term:57 Entries:[{55 4503978533713388297} {55 7556682776072937046} {55 7894915533684709696} {55 2288921882675719885} {55 3599264004956658085} {55 3679398016883479818} {55 9025777832171253471} {55 6330653491733607826} {55 7580482554782987977}]
+1529764 LOG2 S1 check prev success, replicate entries(len=9) start from prev index:200
+1529764 LOG2 S1 append entry at index:200
+1529764 LOG2 S1 append entry at index:201
+1529764 LOG2 S1 append entry at index:202
+1529765 LOG2 S1 append entry at index:203
+1529765 LOG2 S1 append entry at index:204
+1529765 LOG2 S1 append entry at index:205
+1529765 LOG2 S1 append entry at index:206
+1529766 LOG2 S1 append entry at index:207
+1529766 LOG2 S1 append entry at index:208
+1529766 LOG2 S1 commitIndex:199 < leader:207, last new entry:208
+1529766 LOG2 S1 set commitIndex to 207
+1529767 PERS S1 Saving persistent state to stable storage at Term:57.
+1529769 LEAD S0 sended AppendEntries(len=9) to S1
+1529769 LEAD S0 -> S1 AppendEntries with success
+1529769 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1529770 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1529794 CLNT S1 applying log of index:200{55 4503978533713388297}
+1529795 CLNT S1 applying log of index:201{55 7556682776072937046}
+1529795 CLNT S1 applying log of index:202{55 7894915533684709696}
+1529795 CLNT S1 applying log of index:203{55 2288921882675719885}
+1529795 CLNT S1 applying log of index:204{55 3599264004956658085}
+1529796 CLNT S1 applying log of index:205{55 3679398016883479818}
+1529796 CLNT S1 applying log of index:206{55 9025777832171253471}
+1529796 CLNT S1 applying log of index:207{55 6330653491733607826}
+1530760 TIMR S0's broadcast timeout, broadcasting for Term:57
+1530761 LEAD S0 raise broadcast to every peer at Term:57
+1530762 LEAD S0 broadcast to others, update broadcast time and timeout
+1530818 TERM S1 received heartbeat from S0 of Term:57
+1530818 PERS S1 Saving persistent state to stable storage at Term:57.
+1530821 LEAD S0 sended heartbeat to S1
+1530821 LEAD S0 -> S1 AppendEntries with success
+1530822 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1530822 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1530872 TERM S2 received heartbeat from S0 of Term:57
+1530873 PERS S2 Saving persistent state to stable storage at Term:57.
+1530875 LEAD S0 sended heartbeat to S2
+1530875 LEAD S0 -> S2 AppendEntries with success
+1530875 LOG1 S0 set S2 nextIndex=209 matchIndex=208
+1530876 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1531872 TIMR S0's broadcast timeout, broadcasting for Term:57
+1531873 LEAD S0 raise broadcast to every peer at Term:57
+1531873 LEAD S0 broadcast to others, update broadcast time and timeout
+1531983 TERM S2 received heartbeat from S0 of Term:57
+1531984 PERS S2 Saving persistent state to stable storage at Term:57.
+1531986 LEAD S0 sended heartbeat to S2
+1531986 LEAD S0 -> S2 AppendEntries with success
+1531987 LOG1 S0 set S2 nextIndex=209 matchIndex=208
+1531987 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1532081 TERM S1 received heartbeat from S0 of Term:57
+1532083 PERS S1 Saving persistent state to stable storage at Term:57.
+1532085 LEAD S0 sended heartbeat to S1
+1532085 LEAD S0 -> S1 AppendEntries with success
+1532085 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1532086 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1532989 TIMR S0's broadcast timeout, broadcasting for Term:57
+1532992 LEAD S0 raise broadcast to every peer at Term:57
+1532992 LEAD S0 broadcast to others, update broadcast time and timeout
+1533114 TERM S2 received heartbeat from S0 of Term:57
+1533114 PERS S2 Saving persistent state to stable storage at Term:57.
+1533117 LEAD S0 sended heartbeat to S2
+1533117 LEAD S0 -> S2 AppendEntries with success
+1533117 LOG1 S0 set S2 nextIndex=209 matchIndex=208
+1533118 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1533266 TERM S1 received heartbeat from S0 of Term:57
+1533267 PERS S1 Saving persistent state to stable storage at Term:57.
+1533269 LEAD S0 sended heartbeat to S1
+1533269 LEAD S0 -> S1 AppendEntries with success
+1533270 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1533270 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1534095 TIMR S0's broadcast timeout, broadcasting for Term:57
+1534096 LEAD S0 raise broadcast to every peer at Term:57
+1534097 LEAD S0 broadcast to others, update broadcast time and timeout
+1534177 TERM S1 received heartbeat from S0 of Term:57
+1534178 PERS S1 Saving persistent state to stable storage at Term:57.
+1534181 LEAD S0 sended heartbeat to S1
+1534181 LEAD S0 -> S1 AppendEntries with success
+1534182 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1534182 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1534350 TERM S2 received heartbeat from S0 of Term:57
+1534352 PERS S2 Saving persistent state to stable storage at Term:57.
+1534354 LEAD S0 sended heartbeat to S2
+1534355 LEAD S0 -> S2 AppendEntries with success
+1534355 LOG1 S0 set S2 nextIndex=209 matchIndex=208
+1534355 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1535219 TIMR S0's broadcast timeout, broadcasting for Term:57
+1535220 LEAD S0 raise broadcast to every peer at Term:57
+1535221 LEAD S0 broadcast to others, update broadcast time and timeout
+1535409 TERM S2 received heartbeat from S0 of Term:57
+1535411 PERS S2 Saving persistent state to stable storage at Term:57.
+1535414 LEAD S0 sended heartbeat to S2
+1535415 LEAD S0 -> S2 AppendEntries with success
+1535415 LOG1 S0 set S2 nextIndex=209 matchIndex=208
+1535415 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1536323 TIMR S0's broadcast timeout, broadcasting for Term:57
+1536324 LEAD S0 raise broadcast to every peer at Term:57
+1536325 LEAD S0 broadcast to others, update broadcast time and timeout
+1536475 TERM S2 received heartbeat from S0 of Term:57
+1536476 PERS S2 Saving persistent state to stable storage at Term:57.
+1536476 LEAD S0 sended heartbeat to S2
+1536477 LEAD S0 -> S2 AppendEntries with success
+1536477 LOG1 S0 set S2 nextIndex=209 matchIndex=208
+1536477 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1536593 TERM S1 received heartbeat from S0 of Term:57
+1536594 PERS S1 Saving persistent state to stable storage at Term:57.
+1536594 LEAD S0 sended heartbeat to S1
+1536594 LEAD S0 -> S1 AppendEntries with success
+1536594 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1536594 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1537432 TIMR S0's broadcast timeout, broadcasting for Term:57
+1537432 LEAD S0 raise broadcast to every peer at Term:57
+1537433 LEAD S0 broadcast to others, update broadcast time and timeout
+1537620 TERM S2 received heartbeat from S0 of Term:57
+1537620 PERS S2 Saving persistent state to stable storage at Term:57.
+1537621 LEAD S0 sended heartbeat to S2
+1537622 LEAD S0 -> S2 AppendEntries with success
+1537622 LOG1 S0 set S2 nextIndex=209 matchIndex=208
+1537622 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1537666 TERM S1 received heartbeat from S0 of Term:57
+1537666 PERS S1 Saving persistent state to stable storage at Term:57.
+1538552 TIMR S0's broadcast timeout, broadcasting for Term:57
+1538553 LEAD S0 raise broadcast to every peer at Term:57
+1538553 LEAD S0 broadcast to others, update broadcast time and timeout
+1538665 TERM S1 received heartbeat from S0 of Term:57
+1538666 PERS S1 Saving persistent state to stable storage at Term:57.
+1538668 LEAD S0 sended heartbeat to S1
+1538668 LEAD S0 -> S1 AppendEntries with success
+1538668 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1538668 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1538784 TERM S2 received heartbeat from S0 of Term:57
+1538785 PERS S2 Saving persistent state to stable storage at Term:57.
+1539646 TIMR S0's broadcast timeout, broadcasting for Term:57
+1539648 LEAD S0 raise broadcast to every peer at Term:57
+1539648 LEAD S0 broadcast to others, update broadcast time and timeout
+1539749 TERM S1 received heartbeat from S0 of Term:57
+1539750 PERS S1 Saving persistent state to stable storage at Term:57.
+1539752 LEAD S0 sended heartbeat to S1
+1539752 LEAD S0 -> S1 AppendEntries with success
+1539752 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1539752 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1539863 TERM S2 received heartbeat from S0 of Term:57
+1539864 PERS S2 Saving persistent state to stable storage at Term:57.
+1539866 LEAD S0 sended heartbeat to S2
+1539867 LEAD S0 -> S2 AppendEntries with success
+1539867 LOG1 S0 set S2 nextIndex=209 matchIndex=208
+1539867 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1540770 TIMR S0's broadcast timeout, broadcasting for Term:57
+1540771 LEAD S0 raise broadcast to every peer at Term:57
+1540772 LEAD S0 broadcast to others, update broadcast time and timeout
+1540788 TERM S1 received heartbeat from S0 of Term:57
+1540789 PERS S1 Saving persistent state to stable storage at Term:57.
+1540937 TERM S2 received heartbeat from S0 of Term:57
+1540938 PERS S2 Saving persistent state to stable storage at Term:57.
+1540940 LEAD S0 sended heartbeat to S2
+1540940 LEAD S0 -> S2 AppendEntries with success
+1540940 LOG1 S0 set S2 nextIndex=209 matchIndex=208
+1540940 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1541895 TIMR S0's broadcast timeout, broadcasting for Term:57
+1541897 LEAD S0 raise broadcast to every peer at Term:57
+1541898 LEAD S0 broadcast to others, update broadcast time and timeout
+1541902 TERM S1 received heartbeat from S0 of Term:57
+1541903 PERS S1 Saving persistent state to stable storage at Term:57.
+1541904 LEAD S0 sended heartbeat to S1
+1541905 LEAD S0 -> S1 AppendEntries with success
+1541905 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1541905 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1543011 TIMR S0's broadcast timeout, broadcasting for Term:57
+1543012 LEAD S0 raise broadcast to every peer at Term:57
+1543013 LEAD S0 broadcast to others, update broadcast time and timeout
+1543119 TERM S1 received heartbeat from S0 of Term:57
+1543120 PERS S1 Saving persistent state to stable storage at Term:57.
+1543123 LEAD S0 sended heartbeat to S1
+1543123 LEAD S0 -> S1 AppendEntries with success
+1543123 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1543123 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1544108 TIMR S0's broadcast timeout, broadcasting for Term:57
+1544111 LEAD S0 raise broadcast to every peer at Term:57
+1544111 LEAD S0 broadcast to others, update broadcast time and timeout
+1544116 TERM S2 received heartbeat from S0 of Term:57
+1544116 PERS S2 Saving persistent state to stable storage at Term:57.
+1544118 LEAD S0 sended heartbeat to S2
+1544119 LEAD S0 -> S2 AppendEntries with success
+1544119 LOG1 S0 set S2 nextIndex=209 matchIndex=208
+1544119 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1544320 TERM S1 received heartbeat from S0 of Term:57
+1544322 PERS S1 Saving persistent state to stable storage at Term:57.
+1544324 LEAD S0 sended heartbeat to S1
+1544324 LEAD S0 -> S1 AppendEntries with success
+1544324 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1544325 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1545225 TIMR S0's broadcast timeout, broadcasting for Term:57
+1545227 LEAD S0 raise broadcast to every peer at Term:57
+1545227 LEAD S0 broadcast to others, update broadcast time and timeout
+1545405 TERM S1 received heartbeat from S0 of Term:57
+1545405 PERS S1 Saving persistent state to stable storage at Term:57.
+1545408 LEAD S0 sended heartbeat to S1
+1545408 LEAD S0 -> S1 AppendEntries with success
+1545408 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1545408 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1545483 TERM S2 received heartbeat from S0 of Term:57
+1545484 PERS S2 Saving persistent state to stable storage at Term:57.
+1545486 LEAD S0 sended heartbeat to S2
+1545487 LEAD S0 -> S2 AppendEntries with success
+1545487 LOG1 S0 set S2 nextIndex=209 matchIndex=208
+1545487 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1546349 TIMR S0's broadcast timeout, broadcasting for Term:57
+1546351 LEAD S0 raise broadcast to every peer at Term:57
+1546351 LEAD S0 broadcast to others, update broadcast time and timeout
+1546441 TERM S1 received heartbeat from S0 of Term:57
+1546443 PERS S1 Saving persistent state to stable storage at Term:57.
+1546445 LEAD S0 sended heartbeat to S1
+1546445 LEAD S0 -> S1 AppendEntries with success
+1546446 LOG1 S0 set S1 nextIndex=209 matchIndex=208
+1546446 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1546533 CLNT S0 receive client command, append to logs index:209{57 7580482554782987977}
+1546535 PERS S0 Saving persistent state to stable storage at Term:57.
+1546579 TERM S2 received heartbeat from S0 of Term:57
+1546580 PERS S2 Saving persistent state to stable storage at Term:57.
+1546582 LEAD S0 sended heartbeat to S2
+1546582 LEAD S0 -> S2 AppendEntries with success
+1546582 LOG1 S0 set S2 nextIndex=209 matchIndex=208
+1546582 CMIT S0 newCommitIndex:208.Term:55 at Term:57
+1547435 TIMR S0's broadcast timeout, broadcasting for Term:57
+1547437 LEAD S0 raise broadcast to every peer at Term:57
+1547437 LEAD S0 broadcast to others, update broadcast time and timeout
+1547517 TERM S1 received AppendEntries(len=1) from S0 of Term:57 Entries:[{57 7580482554782987977}]
+1547518 LOG2 S1 check prev success, replicate entries(len=1) start from prev index:209
+1547519 LOG2 S1 append entry at index:209
+1547519 PERS S1 Saving persistent state to stable storage at Term:57.
+1547521 LEAD S0 sended AppendEntries(len=1) to S1
+1547521 LEAD S0 -> S1 AppendEntries with success
+1547521 LOG1 S0 set S1 nextIndex=210 matchIndex=209
+1547521 CMIT S0 newCommitIndex:209 > commitIndex:207 at Term:57
+1547521 CMIT S0 update commitIndex to 209
+1547541 CLNT S0 applying log of index:208{55 7580482554782987977}
+1547542 CLNT S0 applying log of index:209{57 7580482554782987977}
+1547544 SNAP S0 Snapshotting through index 209.
+1547544 SNAP S0 logs:[{0 <nil>} {55 4503978533713388297} {55 7556682776072937046} {55 7894915533684709696} {55 2288921882675719885} {55 3599264004956658085} {55 3679398016883479818} {55 9025777832171253471} {55 6330653491733607826} {55 7580482554782987977} {57 7580482554782987977}]   IncludeIndex:199 IncludeTerm:55
+1547545 SNAP S0 after cutting logs:[{0 <nil>}]   IncludeIndex:209 IncludeTerm:57
+1547545 PERS S0 Saving persistent state to stable storage at Term:57.
+1547545 SNAP S0 was snapshoted, lastIncludedIndex:209 lastIncludedTerm:57 lastLogIndex:209
+1547629 TERM S2 received AppendEntries(len=1) from S0 of Term:57 Entries:[{57 7580482554782987977}]
+1547630 LOG2 S2 check prev success, replicate entries(len=1) start from prev index:209
+1547630 LOG2 S2 append entry at index:209
+1547630 PERS S2 Saving persistent state to stable storage at Term:57.
+1547631 LEAD S0 sended AppendEntries(len=1) to S2
+1547632 LEAD S0 -> S2 AppendEntries with success
+1547632 LOG1 S0 set S2 nextIndex=210 matchIndex=209
+1547632 CMIT S0 newCommitIndex:209.Term:0 at Term:57
+1548534 TIMR S0's broadcast timeout, broadcasting for Term:57
+1548535 LEAD S0 raise broadcast to every peer at Term:57
+1548535 LEAD S0 broadcast to others, update broadcast time and timeout
+1548739 TERM S1 received heartbeat from S0 of Term:57
+1548740 LOG2 S1 commitIndex:207 < leader:209, last new entry:209
+1548740 LOG2 S1 set commitIndex to 209
+1548741 PERS S1 Saving persistent state to stable storage at Term:57.
+1548743 LEAD S0 sended heartbeat to S1
+1548743 LEAD S0 -> S1 AppendEntries with success
+1548743 LOG1 S0 set S1 nextIndex=210 matchIndex=209
+1548743 CMIT S0 newCommitIndex:209.Term:0 at Term:57
+1548853 CLNT S1 applying log of index:208{55 7580482554782987977}
+1548855 CLNT S1 applying log of index:209{57 7580482554782987977}
+1548859 SNAP S1 Snapshotting through index 209.
+1548859 SNAP S1 logs:[{0 <nil>} {55 4503978533713388297} {55 7556682776072937046} {55 7894915533684709696} {55 2288921882675719885} {55 3599264004956658085} {55 3679398016883479818} {55 9025777832171253471} {55 6330653491733607826} {55 7580482554782987977} {57 7580482554782987977}]   IncludeIndex:199 IncludeTerm:55
+1548860 SNAP S1 after cutting logs:[{0 <nil>}]   IncludeIndex:209 IncludeTerm:57
+1548860 PERS S1 Saving persistent state to stable storage at Term:57.
+1548860 SNAP S1 was snapshoted, lastIncludedIndex:209 lastIncludedTerm:57 lastLogIndex:209
+1549666 TIMR S0's broadcast timeout, broadcasting for Term:57
+1549667 LEAD S0 raise broadcast to every peer at Term:57
+1549667 LEAD S0 broadcast to others, update broadcast time and timeout
+1549883 TERM S1 received heartbeat from S0 of Term:57
+1549884 PERS S1 Saving persistent state to stable storage at Term:57.
+1549886 LEAD S0 sended heartbeat to S1
+1549887 LEAD S0 -> S1 AppendEntries with success
+1549887 LOG1 S0 set S1 nextIndex=210 matchIndex=209
+1549887 CMIT S0 newCommitIndex:209.Term:0 at Term:57
+1550779 TIMR S2's heartbeaten timeout, be candidate, Term:57
+1550780 TIMR S2's election timeout, raising an election, Term:57
+1550779 TIMR S0's broadcast timeout, broadcasting for Term:57
+1550781 PERS S2 Saving persistent state to stable storage at Term:58.
+1550782 LEAD S0 raise broadcast to every peer at Term:57
+1550783 LEAD S0 broadcast to others, update broadcast time and timeout
+1550783 VOTE S2 raising an election at Term:58
+1550784 VOTE S2 sending requestVote to S0, Term:58
+1550784 VOTE S2 sending requestVote to S1, Term:58
+1550787 TERM S1 received heartbeat from S0 of Term:57
+1550787 PERS S1 Saving persistent state to stable storage at Term:57.
+1550825 VOTE S0 receive request vote from S2 of Term:58
+1550826 TERM S0's Term is lower, updating term to Term:58, setting state to follower. (58 > 57)
+1550826 PERS S0 Saving persistent state to stable storage at Term:58.
+1550827 VOTE S0 never voted OR has voted to S2
+1550827 TERM S0 lastLogTerm:57 args.LastLogTerm:57
+1550827 VOTE S0 <- S2(at least up to date), vote for S2!
+1550827 PERS S0 Saving persistent state to stable storage at Term:58.
+1550829 VOTE S2 earned enough votes: 2 at election of Term:58
+1550829 LEAD S2 become leader in Term:58!
+1550829 LOG1 S2 set all peers' nextIndex=210
+1550829 LEAD S2 raise broadcast to every peer at Term:58
+1550830 LEAD S2 broadcast to others, update broadcast time and timeout
+1550883 TERM S1 received heartbeat from S2 of Term:58
+1550883 TERM S1's Term is lower, updating term to Term:58, setting state to follower. (58 > 57)
+1550883 PERS S1 Saving persistent state to stable storage at Term:58.
+1550884 LOG2 S1 check prev term not matched, refused wait for retry, XTerm:0 XIndex:0 XLen:209
+1550885 LEAD S2 sended heartbeat to S1
+1550886 LOG1 S2 (recv false) set S1 nextIndex=209 matchIndex=0, will retry in next broadcast
+1550942 TERM S2 received heartbeat from S0 of Term:57
+1550942 LOG2 S2 refused AE: leader Term:57 < current Term58
+1550944 WARN S0 is not Leader, this RPC -> S2 has stopped
+1550996 VOTE S1 receive request vote from S2 of Term:58
+1550996 VOTE S1 never voted OR has voted to S2
+1550996 TERM S1 lastLogTerm:57 args.LastLogTerm:57
+1550996 VOTE S1 <- S2(at least up to date), vote for S2!
+1550997 PERS S1 Saving persistent state to stable storage at Term:58.
+1551113 TERM S0 received heartbeat from S2 of Term:58
+1551114 LOG2 S0 check prev term not matched, refused wait for retry, XTerm:0 XIndex:0 XLen:209
+1551115 LEAD S2 sended heartbeat to S0
+1551116 LOG1 S2 (recv false) set S0 nextIndex=209 matchIndex=0, will retry in next broadcast
+1551914 TIMR S2's broadcast timeout, broadcasting for Term:58
+1551916 LEAD S2 raise broadcast to every peer at Term:58
+1551917 LEAD S2 broadcast to others, update broadcast time and timeout
+1551944 TERM S1 received AppendEntries(len=1) from S2 of Term:58 Entries:[{57 7580482554782987977}]
+1551944 LOG2 S1 receive PrevIndex:208 < lastIncludeIndex:209, return XLen=209
+1551946 LEAD S2 sended AppendEntries(len=1) to S1
+1551947 LOG1 S2 (recv false) set S1 nextIndex=209 matchIndex=0, will retry in next broadcast
+1552015 TERM S0 received AppendEntries(len=1) from S2 of Term:58 Entries:[{57 7580482554782987977}]
+1552016 LOG2 S0 receive PrevIndex:208 < lastIncludeIndex:209, return XLen=209
+1552020 LEAD S2 sended AppendEntries(len=1) to S0
+1552021 LOG1 S2 (recv false) set S0 nextIndex=209 matchIndex=0, will retry in next broadcast
+1553048 TIMR S2's broadcast timeout, broadcasting for Term:58
+1553050 LEAD S2 raise broadcast to every peer at Term:58
+1553051 LEAD S2 broadcast to others, update broadcast time and timeout
+1553158 TERM S0 received AppendEntries(len=1) from S2 of Term:58 Entries:[{57 7580482554782987977}]
+1553158 LOG2 S0 receive PrevIndex:208 < lastIncludeIndex:209, return XLen=209
+1553160 LEAD S2 sended AppendEntries(len=1) to S0
+1553161 LOG1 S2 (recv false) set S0 nextIndex=209 matchIndex=0, will retry in next broadcast
+1553307 TERM S1 received AppendEntries(len=1) from S2 of Term:58 Entries:[{57 7580482554782987977}]
+1553308 LOG2 S1 receive PrevIndex:208 < lastIncludeIndex:209, return XLen=209
+1553310 LEAD S2 sended AppendEntries(len=1) to S1
+1553311 LOG1 S2 (recv false) set S1 nextIndex=209 matchIndex=0, will retry in next broadcast
+1554172 TIMR S2's broadcast timeout, broadcasting for Term:58
+1554174 LEAD S2 raise broadcast to every peer at Term:58
+1554175 LEAD S2 broadcast to others, update broadcast time and timeout
+1554449 TERM S1 received AppendEntries(len=1) from S2 of Term:58 Entries:[{57 7580482554782987977}]
+1554450 LOG2 S1 receive PrevIndex:208 < lastIncludeIndex:209, return XLen=209
+1554452 LEAD S2 sended AppendEntries(len=1) to S1
+1554452 LOG1 S2 (recv false) set S1 nextIndex=209 matchIndex=0, will retry in next broadcast
+1555264 TIMR S2's broadcast timeout, broadcasting for Term:58
+1555265 LEAD S2 raise broadcast to every peer at Term:58
+1555266 LEAD S2 broadcast to others, update broadcast time and timeout
+1555397 TERM S1 received AppendEntries(len=1) from S2 of Term:58 Entries:[{57 7580482554782987977}]
+1555398 LOG2 S1 receive PrevIndex:208 < lastIncludeIndex:209, return XLen=209
+1555399 LEAD S2 sended AppendEntries(len=1) to S1
+1555400 LOG1 S2 (recv false) set S1 nextIndex=209 matchIndex=0, will retry in next broadcast
+1556393 TIMR S2's broadcast timeout, broadcasting for Term:58
+1556395 LEAD S2 raise broadcast to every peer at Term:58
+1556396 LEAD S2 broadcast to others, update broadcast time and timeout
+1556411 TERM S1 received AppendEntries(len=1) from S2 of Term:58 Entries:[{57 7580482554782987977}]
+1556411 LOG2 S1 receive PrevIndex:208 < lastIncludeIndex:209, return XLen=209
+1556413 LEAD S2 sended AppendEntries(len=1) to S1
+1556414 LOG1 S2 (recv false) set S1 nextIndex=209 matchIndex=0, will retry in next broadcast
+1556531 TERM S0 received AppendEntries(len=1) from S2 of Term:58 Entries:[{57 7580482554782987977}]
+1556533 LOG2 S0 receive PrevIndex:208 < lastIncludeIndex:209, return XLen=209
+1556534 LEAD S2 sended AppendEntries(len=1) to S0
+1556535 LOG1 S2 (recv false) set S0 nextIndex=209 matchIndex=0, will retry in next broadcast
+1557510 TIMR S2's broadcast timeout, broadcasting for Term:58
+1557512 LEAD S2 raise broadcast to every peer at Term:58
+1557513 LEAD S2 broadcast to others, update broadcast time and timeout
+1557551 TERM S1 received AppendEntries(len=1) from S2 of Term:58 Entries:[{57 7580482554782987977}]
+1557552 LOG2 S1 receive PrevIndex:208 < lastIncludeIndex:209, return XLen=209
+1557553 LEAD S2 sended AppendEntries(len=1) to S1
+1557554 LOG1 S2 (recv false) set S1 nextIndex=209 matchIndex=0, will retry in next broadcast
+1557638 TERM S0 received AppendEntries(len=1) from S2 of Term:58 Entries:[{57 7580482554782987977}]
+1557639 LOG2 S0 receive PrevIndex:208 < lastIncludeIndex:209, return XLen=209
+1557640 LEAD S2 sended AppendEntries(len=1) to S0
+1557640 LOG1 S2 (recv false) set S0 nextIndex=209 matchIndex=0, will retry in next broadcast
+1558609 TIMR S2's broadcast timeout, broadcasting for Term:58
+1558609 LEAD S2 raise broadcast to every peer at Term:58
+1558610 LEAD S2 broadcast to others, update broadcast time and timeout
+1558760 TERM S1 received AppendEntries(len=1) from S2 of Term:58 Entries:[{57 7580482554782987977}]
+1558760 LOG2 S1 receive PrevIndex:208 < lastIncludeIndex:209, return XLen=209
+1558761 LEAD S2 sended AppendEntries(len=1) to S1
+1558761 LOG1 S2 (recv false) set S1 nextIndex=209 matchIndex=0, will retry in next broadcast
+1558811 TERM S0 received AppendEntries(len=1) from S2 of Term:58 Entries:[{57 7580482554782987977}]
+1558811 LOG2 S0 receive PrevIndex:208 < lastIncludeIndex:209, return XLen=209
+1558812 LEAD S2 sended AppendEntries(len=1) to S0

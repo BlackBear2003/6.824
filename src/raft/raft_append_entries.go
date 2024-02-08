@@ -78,10 +78,16 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		return
 	}
 	//if rf.logs[args.PrevLogIndex].Term != args.PrevLogTerm && args.PrevLogTerm != 0 {
-	if rf.getLog(args.PrevLogIndex).Term != args.PrevLogTerm && args.PrevLogTerm != 0 {
+	var matchingTerm int
+	if args.PrevLogIndex == rf.lastIncludedIndex {
+		matchingTerm = rf.lastIncludedTerm
+	} else {
+		matchingTerm = rf.getLog(args.PrevLogIndex).Term
+	}
+	if matchingTerm != args.PrevLogTerm && args.PrevLogTerm != 0 {
 		reply.XLen = lastLogIndex
 		//reply.XTerm = rf.logs[args.PrevLogIndex].Term
-		reply.XTerm = rf.getLog(args.PrevLogIndex).Term
+		reply.XTerm = matchingTerm
 		reply.XIndex, _ = rf.getLogIndexesWithTerm(reply.XTerm)
 		PrettyDebug(dLog2, "S%d check prev term not matched, refused wait for retry, XTerm:%d XIndex:%d XLen:%d", rf.me, reply.XTerm, reply.XIndex, reply.XLen)
 		return
@@ -195,19 +201,6 @@ func (rf *Raft) appendEntriesHandler(peer int, term int, args *AppendEntriesArgs
 				rf.nextIndex[peer] = lastIndex
 			}
 		}
-		// After a rejection, the leader decrements nextIndex and retries the AppendEntries RPC.
-		// if rf.nextIndex[peer] <= rf.lastIncludedIndex {
-		// 	// peer的index已经被快照截了，得发送快照了
-		// 	PrettyDebug(dSnap, "S%d -> S%d Sending installing snapshot request at Term:%d.", rf.me, peer, rf.currentTerm)
-		// 	args := &InstallSnapshotArgs{
-		// 		Term:              rf.currentTerm,
-		// 		LeaderId:          rf.me,
-		// 		LastIncludedIndex: rf.lastIncludedIndex,
-		// 		LastIncludedTerm:  rf.lastIncludedTerm,
-		// 		Data:              rf.persister.snapshot,
-		// 	}
-		// 	go rf.installSnapshotHandler(args, peer)
-		// } else if rf.nextIndex[peer] > 1 && rf.nextIndex[peer] > rf.lastIncludedIndex {
 		if rf.nextIndex[peer] > 1 {
 			rf.nextIndex[peer]--
 			PrettyDebug(dLog, "S%d (recv false) set S%d nextIndex=%d matchIndex=%d, will retry in next broadcast", rf.me, peer, rf.nextIndex[peer], rf.matchIndex[peer])

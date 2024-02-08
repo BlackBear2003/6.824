@@ -9,9 +9,9 @@ type Entry struct {
 
 // index = lastIncludedIndex + i
 func (rf *Raft) getLog(index int) *Entry {
-	if index == 0 {
-		return &rf.logs[index]
-	}
+	// if index == 0 {
+	// 	return &rf.logs[index]
+	// }
 	i := index - rf.lastIncludedIndex
 	return &rf.logs[i]
 }
