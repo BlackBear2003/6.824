@@ -77,7 +77,6 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		PrettyDebug(dLog2, "S%d 's log(index:%d -> XLen) shorter than prev index%d, refused wait for retry, return XLen=%d", rf.me, lastLogIndex, args.PrevLogIndex, reply.XLen)
 		return
 	}
-	//if rf.logs[args.PrevLogIndex].Term != args.PrevLogTerm && args.PrevLogTerm != 0 {
 	var matchingTerm int
 	if args.PrevLogIndex == rf.lastIncludedIndex {
 		matchingTerm = rf.lastIncludedTerm
@@ -112,7 +111,6 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 				rf.me, args.LeaderId, idx, rf.getLog(idx).Term, entry.Term)
 			// 3. If an existing entry conflicts with a new one (same index but different terms),
 			//    delete the existing entry and all that follow it
-			// rf.logs = rf.logs[:idx]
 			rf.logs = rf.copyLogs(rf.lastIncludedIndex+1, idx)
 			// 4. Append any new entries not already in the log
 			rf.logs = append(rf.logs, args.Entries[i:]...)

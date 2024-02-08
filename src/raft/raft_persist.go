@@ -29,18 +29,6 @@ func (rf *Raft) readPersist(data []byte) {
 		return
 	}
 	// Your code here (2C).
-	// Example:
-	// r := bytes.NewBuffer(data)
-	// d := labgob.NewDecoder(r)
-	// var xxx
-	// var yyy
-	// if d.Decode(&xxx) != nil ||
-	//    d.Decode(&yyy) != nil {
-	//   error...
-	// } else {
-	//   rf.xxx = xxx
-	//   rf.yyy = yyy
-	// }
 	PrettyDebug(dPersist, "S%d Restoring previously persisted state at Term:%d.", rf.me, rf.currentTerm)
 	r := bytes.NewBuffer(data)
 	d := labgob.NewDecoder(r)
@@ -51,8 +39,5 @@ func (rf *Raft) readPersist(data []byte) {
 	d.Decode(&rf.logs)
 	d.Decode(&rf.lastIncludedIndex)
 	d.Decode(&rf.lastIncludedTerm)
-
-	// rf.commitIndex = rf.lastIncludedIndex
-	// rf.lastApplied = rf.lastIncludedIndex
 
 }

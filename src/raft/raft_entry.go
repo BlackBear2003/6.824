@@ -7,11 +7,8 @@ type Entry struct {
 	Command interface{}
 }
 
-// index = lastIncludedIndex + i
+// index = lastIncludedIndex + index
 func (rf *Raft) getLog(index int) *Entry {
-	// if index == 0 {
-	// 	return &rf.logs[index]
-	// }
 	i := index - rf.lastIncludedIndex
 	return &rf.logs[i]
 }

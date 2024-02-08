@@ -42,12 +42,6 @@ func (rf *Raft) Snapshot(index int, snapshot []byte) {
 	rf.lastIncludedIndex = index
 	PrettyDebug(dSnap, "S%d after cutting logs:%v   IncludeIndex:%d IncludeTerm:%d", rf.me, rf.logs, rf.lastIncludedIndex, rf.lastIncludedTerm)
 
-	// if index > rf.commitIndex {
-	// 	rf.commitIndex = index
-	// }
-	// if index > rf.lastApplied {
-	// 	rf.lastApplied = index
-	// }
 	rf.persistAndSnapshot(snapshot)
 
 	lastLogIndex, _ = rf.getLastLogInfo()

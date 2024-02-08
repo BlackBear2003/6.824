@@ -15,8 +15,6 @@ func (rf *Raft) requestVoteHandler(cnt *Counter, args *RequestVoteArgs, peer int
 					PrettyDebug(dVote, "S%d earned enough votes: %d at election of Term:%d", me, need, args.Term)
 					if rf.state == CandidateState && rf.currentTerm == args.Term {
 						rf.state = LeaderState
-						// WARN: seems no need to do term++ ?
-						// rf.currentTerm++
 						PrettyDebug(dLeader, "S%d become leader in Term:%d!", me, rf.currentTerm)
 						// 2B: initializeLogs when being leader
 						lastLogIndex, _ := rf.getLastLogInfo()
