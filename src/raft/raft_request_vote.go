@@ -15,13 +15,15 @@ func (rf *Raft) requestVoteHandler(cnt *Counter, args *RequestVoteArgs, peer int
 					PrettyDebug(dVote, "S%d earned enough votes: %d at election of Term:%d", me, need, args.Term)
 					if rf.state == CandidateState && rf.currentTerm == args.Term {
 						rf.state = LeaderState
-						PrettyDebug(dLeader, "S%d become leader in Term:%d!", me, rf.currentTerm)
-						// 2B: initializeLogs when being leader
+						rf.logs = append(rf.logs, Entry{rf.currentTerm, 0})
 						lastLogIndex, _ := rf.getLastLogInfo()
+						PrettyDebug(dLeader, "S%d become leader in Term:%d! Add no-op log at Index:%d", me, rf.currentTerm, lastLogIndex)
+						// 2B: initializeLogs when being leader
 						for peer := range rf.peers {
 							rf.nextIndex[peer] = lastLogIndex + 1
 							rf.matchIndex[peer] = 0
 						}
+						rf.persist()
 						PrettyDebug(dLog, "S%d set all peers' nextIndex=%d", me, lastLogIndex+1)
 						// start heartbeat
 						go rf.raiseBroadcast(rf.currentTerm)
