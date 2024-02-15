@@ -25,6 +25,7 @@ import (
 	"time"
 
 	//	"6.824/labgob"
+	"6.824/labgob"
 	"6.824/labrpc"
 )
 
@@ -173,7 +174,7 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	index, term = rf.getLastLogInfo()
 	PrettyDebug(dClient, "S%d receive client command, append to logs index:%d{%d %v}", rf.me, index, term, command)
 	rf.persist()
-	//go rf.raiseBroadcast(term)
+	go rf.raiseBroadcast(term)
 	return index, term, true
 }
 
@@ -210,6 +211,10 @@ func (rf *Raft) killed() bool {
 // for any long-running work.
 func Make(peers []*labrpc.ClientEnd, me int,
 	persister *Persister, applyCh chan ApplyMsg) *Raft {
+
+	labgob.Register([]Entry{})
+	labgob.Register(Entry{})
+
 	rf := &Raft{}
 	rf.peers = peers
 	rf.persister = persister
