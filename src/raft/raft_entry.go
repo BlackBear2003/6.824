@@ -1,6 +1,8 @@
 package raft
 
-import "math"
+import (
+	"math"
+)
 
 type Entry struct {
 	Term    int
@@ -10,6 +12,7 @@ type Entry struct {
 // index = lastIncludedIndex + index
 func (rf *Raft) getLog(index int) *Entry {
 	i := index - rf.lastIncludedIndex
+
 	return &rf.logs[i]
 }
 

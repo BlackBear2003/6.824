@@ -1,13 +1,19 @@
 package kvraft
 
-import "6.824/labrpc"
-import "crypto/rand"
-import "math/big"
+import (
+	"crypto/rand"
+	"math/big"
+	"sync/atomic"
 
+	"6.824/labrpc"
+)
 
 type Clerk struct {
 	servers []*labrpc.ClientEnd
 	// You will have to modify this struct.
+	clientId  int64
+	leaderId  int
+	commandId int64
 }
 
 func nrand() int64 {
@@ -21,10 +27,13 @@ func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 	ck := new(Clerk)
 	ck.servers = servers
 	// You'll have to add code here.
+	ck.clientId = nrand()
+	ck.leaderId = 0
+	ck.commandId = 0
+
 	return ck
 }
 
-//
 // fetch the current value for a key.
 // returns "" if the key does not exist.
 // keeps trying forever in the face of all other errors.
@@ -35,30 +44,33 @@ func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 // the types of args and reply (including whether they are pointers)
 // must match the declared types of the RPC handler function's
 // arguments. and reply must be passed as a pointer.
-//
 func (ck *Clerk) Get(key string) string {
 
 	// You will have to modify this function.
-	return ""
+	return ck.exec(&ExecArgs{Key: key, Op: "Get"})
 }
 
-//
-// shared by Put and Append.
+// shared by Put and Append and Get
 //
 // you can send an RPC with code like this:
 // ok := ck.servers[i].Call("KVServer.PutAppend", &args, &reply)
-//
-// the types of args and reply (including whether they are pointers)
-// must match the declared types of the RPC handler function's
-// arguments. and reply must be passed as a pointer.
-//
-func (ck *Clerk) PutAppend(key string, value string, op string) {
-	// You will have to modify this function.
+func (ck *Clerk) exec(args *ExecArgs) string {
+	args.ClientId = ck.clientId
+	args.CommandId = atomic.AddInt64(&ck.commandId, 1)
+	for {
+		reply := &ExecReply{}
+		ok := ck.servers[ck.leaderId].Call("KVServer.Exec", args, reply)
+		if !ok || reply.Err == ErrWrongLeader || reply.Err == ErrTimeout {
+			ck.leaderId = (ck.leaderId + 1) % len(ck.servers)
+			continue
+		}
+		return reply.Value
+	}
 }
 
 func (ck *Clerk) Put(key string, value string) {
-	ck.PutAppend(key, value, "Put")
+	ck.exec(&ExecArgs{Key: key, Value: value, Op: "Put"})
 }
 func (ck *Clerk) Append(key string, value string) {
-	ck.PutAppend(key, value, "Append")
+	ck.exec(&ExecArgs{Key: key, Value: value, Op: "Append"})
 }

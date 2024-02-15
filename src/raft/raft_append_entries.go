@@ -1,6 +1,8 @@
 package raft
 
-import "sort"
+import (
+	"sort"
+)
 
 type AppendEntriesArgs struct {
 	Term         int
