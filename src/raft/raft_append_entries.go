@@ -179,12 +179,14 @@ func (rf *Raft) appendEntriesHandler(peer int, term int, args *AppendEntriesArgs
 		}
 		sort.Ints(sortedMatchIndex)
 		newCommitIndex := sortedMatchIndex[len(rf.peers)/2]
-		if newCommitIndex >= rf.commitIndex && rf.getLog(newCommitIndex).Term == rf.currentTerm {
-			PrettyDebug(dCommit, "S%d newCommitIndex:%d > commitIndex:%d at Term:%d", rf.me, newCommitIndex, rf.commitIndex, rf.currentTerm)
-			rf.commitIndex = newCommitIndex
-			PrettyDebug(dCommit, "S%d update commitIndex to %d", rf.me, rf.commitIndex)
-		} else if newCommitIndex >= rf.commitIndex && rf.getLog(newCommitIndex).Term != rf.currentTerm {
-			PrettyDebug(dCommit, "S%d newCommitIndex:%d.Term:%d at Term:%d", rf.me, newCommitIndex, rf.getLog(newCommitIndex).Term, rf.currentTerm)
+		if newCommitIndex > 0 {
+			if newCommitIndex >= rf.commitIndex && rf.getLog(newCommitIndex).Term == rf.currentTerm {
+				PrettyDebug(dCommit, "S%d newCommitIndex:%d > commitIndex:%d at Term:%d", rf.me, newCommitIndex, rf.commitIndex, rf.currentTerm)
+				rf.commitIndex = newCommitIndex
+				PrettyDebug(dCommit, "S%d update commitIndex to %d", rf.me, rf.commitIndex)
+			} else if newCommitIndex >= rf.commitIndex && rf.getLog(newCommitIndex).Term != rf.currentTerm {
+				PrettyDebug(dCommit, "S%d newCommitIndex:%d.Term:%d at Term:%d", rf.me, newCommitIndex, rf.getLog(newCommitIndex).Term, rf.currentTerm)
+			}
 		}
 	} else {
 		// 2C optimize log catch up
