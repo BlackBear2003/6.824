@@ -193,7 +193,8 @@ func (rf *Raft) appendEntriesHandler(peer int, term int, args *AppendEntriesArgs
 	} else {
 		// 2C optimize log catch up
 		if reply.XTerm == -1 {
-			rf.nextIndex[peer] = reply.XLen + 1
+			lastLogIndex, _ := rf.getLastLogInfo()
+			rf.nextIndex[peer] = min(reply.XLen+1, lastLogIndex+1)
 		} else {
 			_, lastIndex := rf.getLogIndexesWithTerm(reply.XTerm)
 			if lastIndex == -1 {

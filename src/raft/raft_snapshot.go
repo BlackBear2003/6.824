@@ -119,6 +119,7 @@ func (rf *Raft) InstallSnapshot(args *InstallSnapshotArgs, reply *InstallSnapsho
 	rf.lastIncludedIndex = index
 	rf.lastIncludedTerm = args.LastIncludedTerm
 	rf.logs = tempLogs
+	lastLogIndex, _ = rf.getLastLogInfo()
 	PrettyDebug(dSnap, "S%d installed snapshot, lastIncludedIndex:%d lastIncludedTerm:%d lastLogIndex:%d",
 		rf.me, rf.lastIncludedIndex, rf.lastIncludedTerm, lastLogIndex)
 	rf.lastApplied = rf.lastIncludedIndex

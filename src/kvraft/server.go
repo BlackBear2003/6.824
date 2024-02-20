@@ -164,15 +164,17 @@ func (kv *KVServer) notifier() {
 						kv.setLastCommandReply(cmd.ClientId, cmd.CommandId, reply)
 					}
 				}
-
+				kv.mu.Unlock()
 				// only notify related channel for currentTerm's log when node is leader
 				if _, isLeader := kv.rf.GetState(); isLeader {
+					kv.mu.Lock()
 					if kv.hasNotifyChan(msg.CommandIndex) {
 						ch := kv.getNotifyChan(msg.CommandIndex)
 						ch <- reply
 					}
+					kv.mu.Unlock()
 				}
-
+				kv.mu.Lock()
 				if kv.maxraftstate != -1 && kv.persister.RaftStateSize() > kv.maxraftstate {
 					kv.saveSnapshot(msg.CommandIndex)
 				}
