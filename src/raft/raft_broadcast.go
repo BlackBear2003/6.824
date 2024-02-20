@@ -26,7 +26,7 @@ func (rf *Raft) raiseBroadcast(term int) {
 				LeaderId:          rf.me,
 				LastIncludedIndex: rf.lastIncludedIndex,
 				LastIncludedTerm:  rf.lastIncludedTerm,
-				Data:              rf.persister.snapshot,
+				Data:              rf.persister.ReadSnapshot(),
 			}
 			go rf.installSnapshotHandler(args, peer)
 		} else { //if preLogIndex <= lastLogIndex {

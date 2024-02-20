@@ -3,7 +3,6 @@ package kvraft
 import (
 	"crypto/rand"
 	"math/big"
-	"sync/atomic"
 
 	"6.824/labrpc"
 )
@@ -29,7 +28,7 @@ func MakeClerk(servers []*labrpc.ClientEnd) *Clerk {
 	// You'll have to add code here.
 	ck.clientId = nrand()
 	ck.leaderId = 0
-	ck.commandId = 0
+	ck.commandId = 1
 
 	return ck
 }
@@ -56,7 +55,7 @@ func (ck *Clerk) Get(key string) string {
 // ok := ck.servers[i].Call("KVServer.PutAppend", &args, &reply)
 func (ck *Clerk) exec(args *ExecArgs) string {
 	args.ClientId = ck.clientId
-	args.CommandId = atomic.AddInt64(&ck.commandId, 1)
+	args.CommandId = ck.commandId // atomic.AddInt64(&, 1)
 	for {
 		reply := &ExecReply{}
 		ok := ck.servers[ck.leaderId].Call("KVServer.Exec", args, reply)
@@ -64,6 +63,7 @@ func (ck *Clerk) exec(args *ExecArgs) string {
 			ck.leaderId = (ck.leaderId + 1) % len(ck.servers)
 			continue
 		}
+		ck.commandId++
 		return reply.Value
 	}
 }

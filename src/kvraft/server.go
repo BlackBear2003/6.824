@@ -13,8 +13,8 @@ import (
 	"6.824/raft"
 )
 
-const Debug = false
-const ExecuteTimeout = 200 * time.Millisecond
+const Debug = true
+const ExecuteTimeout = 500 * time.Millisecond
 
 func DPrintf(format string, a ...interface{}) (n int, err error) {
 	if Debug {
@@ -89,6 +89,7 @@ func (kv *KVServer) deleteNotifyChan(index int) {
 
 func (kv *KVServer) Exec(args *ExecArgs, reply *ExecReply) {
 	// Your code here.
+	defer DPrintf("{Node %v} processes ExecArgs %v with ExecReply %v", kv.me, args, reply)
 	kv.mu.Lock()
 	if args.Op != "Get" && kv.isDupliceCommand(args.ClientId, args.CommandId) {
 		// 收到已经执行过的cmd
@@ -128,6 +129,7 @@ func (kv *KVServer) notifier() {
 	for !kv.killed() {
 		select {
 		case msg := <-kv.applyCh:
+			DPrintf("{Node %v} tries to apply message %v", kv.me, msg)
 			if msg.CommandValid {
 				kv.mu.Lock()
 				if msg.CommandIndex <= kv.lastApplied {
@@ -144,6 +146,7 @@ func (kv *KVServer) notifier() {
 				cmd := msg.Command.(Op)
 				if cmd.OpType != "Get" && kv.isDupliceCommand(cmd.ClientId, cmd.CommandId) {
 					// doesn't apply duplicated message to stateMachine
+					DPrintf("{Node %v} doesn't apply duplicated message %v to stateMachine because maxAppliedCommandId is %v for client %v", kv.me, msg, kv.cmdMap[cmd.ClientId], cmd.ClientId)
 					reply = kv.getLastCommandReply(cmd.ClientId)
 				} else {
 					switch cmd.OpType {
@@ -160,6 +163,7 @@ func (kv *KVServer) notifier() {
 							reply = &ExecReply{err, ""}
 						}
 					}
+					DPrintf("{Node %v} apply message %v to stateMachine because maxAppliedCommandId is %v for client %v", kv.me, msg, kv.cmdMap[cmd.ClientId], cmd.ClientId)
 					if cmd.OpType != "Get" {
 						kv.setLastCommandReply(cmd.ClientId, cmd.CommandId, reply)
 					}

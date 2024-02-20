@@ -97,6 +97,7 @@ func (rf *Raft) InstallSnapshot(args *InstallSnapshotArgs, reply *InstallSnapsho
 		rf.updateTermPassively(args.Term)
 	}
 	reply.Term = rf.currentTerm
+	rf.state = FollowerState
 	rf.resetHeartbeatenTimeout()
 
 	if rf.commitIndex >= args.LastIncludedIndex {
@@ -110,7 +111,7 @@ func (rf *Raft) InstallSnapshot(args *InstallSnapshotArgs, reply *InstallSnapsho
 	tempLogs = append(tempLogs, Entry{0, nil})
 	lastLogIndex, _ := rf.getLastLogInfo()
 
-	if index < lastLogIndex {
+	if index <= lastLogIndex {
 		// 快照并不能包含接收者的所有的日志条目
 		// 把快照包含的条目都裁剪掉，留下快照不包含的
 		tempLogs = append(tempLogs, rf.getLogs(index+1, lastLogIndex+1)...)
@@ -132,9 +133,9 @@ func (rf *Raft) InstallSnapshot(args *InstallSnapshotArgs, reply *InstallSnapsho
 		SnapshotTerm:  rf.lastIncludedTerm,
 		SnapshotIndex: rf.lastIncludedIndex,
 	}
-	go func(msg ApplyMsg) {
+	go func() {
 		rf.applyChannel <- msg
-	}(msg)
+	}()
 }
 
 func (rf *Raft) installSnapshotHandler(args *InstallSnapshotArgs, peer int) {

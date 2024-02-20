@@ -3,7 +3,6 @@ package kvraft
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -317,7 +316,7 @@ func GenericTest(t *testing.T, part string, nclients int, nservers int, unreliab
 			// have submitted a request in a minority.  That request
 			// won't return until that server discovers a new term
 			// has started.
-			log.Printf("\n\n\n\n\n****partition stop connect all****\n\n\n\n\n")
+			// log.Printf("\n\n\n\n\n****partition stop connect all****\n\n\n\n\n")
 			cfg.ConnectAll()
 			// wait for a while so that we have a new term
 			time.Sleep(electionTimeout)
