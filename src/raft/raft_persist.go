@@ -29,7 +29,7 @@ func (rf *Raft) readPersist(data []byte) {
 		return
 	}
 	// Your code here (2C).
-	PrettyDebug(dPersist, "S%d Restoring previously persisted state at Term:%d.", rf.me, rf.currentTerm)
+
 	r := bytes.NewBuffer(data)
 	d := labgob.NewDecoder(r)
 	rf.mu.Lock()
@@ -39,5 +39,5 @@ func (rf *Raft) readPersist(data []byte) {
 	d.Decode(&rf.logs)
 	d.Decode(&rf.lastIncludedIndex)
 	d.Decode(&rf.lastIncludedTerm)
-
+	PrettyDebug(dPersist, "S%d Restoring previously persisted state at Term:%d.", rf.me, rf.currentTerm)
 }

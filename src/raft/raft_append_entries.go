@@ -65,28 +65,21 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 
 	if args.PrevLogIndex < rf.lastIncludedIndex {
 		reply.Success = false
-		reply.XTerm = -1
-		reply.XLen = lastLogIndex
-		PrettyDebug(dLog2, "S%d receive PrevIndex:%d < lastIncludeIndex:%d, return XLen=%d", rf.me, args.PrevLogIndex, rf.lastIncludedIndex, reply.XLen)
+		PrettyDebug(dLog2, "S%d receive PrevIndex:%d < lastIncludeIndex:%d, unexpected!", rf.me, args.PrevLogIndex, rf.lastIncludedIndex)
 		return
 	}
 
 	// 2. Reply false if log doesn’t contain an entry at prevLogIndex whose term matches prevLogTerm
 	// 先匹配上相交点
 	if args.PrevLogIndex > lastLogIndex {
-		reply.XLen = lastLogIndex
+		reply.XLen = lastLogIndex + 1
 		reply.XTerm = -1
-		PrettyDebug(dLog2, "S%d 's log(index:%d -> XLen) shorter than prev index%d, refused wait for retry, return XLen=%d", rf.me, lastLogIndex, args.PrevLogIndex, reply.XLen)
+		PrettyDebug(dLog2, "S%d 's log(index:%d) shorter than prev index:%d, refused wait for retry, return XLen=%d", rf.me, lastLogIndex, args.PrevLogIndex, reply.XLen)
 		return
 	}
-	var matchingTerm int
-	if args.PrevLogIndex == rf.lastIncludedIndex {
-		matchingTerm = rf.lastIncludedTerm
-	} else {
-		matchingTerm = rf.getLog(args.PrevLogIndex).Term
-	}
+	matchingTerm := rf.getLog(args.PrevLogIndex).Term
 	if matchingTerm != args.PrevLogTerm && args.PrevLogTerm != 0 {
-		reply.XLen = lastLogIndex
+		reply.XLen = lastLogIndex + 1
 		//reply.XTerm = rf.logs[args.PrevLogIndex].Term
 		reply.XTerm = matchingTerm
 		reply.XIndex, _ = rf.getLogIndexesWithTerm(reply.XTerm)
@@ -194,8 +187,8 @@ func (rf *Raft) appendEntriesHandler(peer int, term int, args *AppendEntriesArgs
 		// 2C optimize log catch up
 		if reply.XTerm == -1 {
 			lastLogIndex, _ := rf.getLastLogInfo()
-			rf.nextIndex[peer] = min(reply.XLen+1, lastLogIndex+1)
-		} else {
+			rf.nextIndex[peer] = min(reply.XLen, lastLogIndex)
+		} else if reply.XTerm > 0 {
 			_, lastIndex := rf.getLogIndexesWithTerm(reply.XTerm)
 			if lastIndex == -1 {
 				// 没有这个term的
@@ -204,9 +197,9 @@ func (rf *Raft) appendEntriesHandler(peer int, term int, args *AppendEntriesArgs
 				rf.nextIndex[peer] = lastIndex
 			}
 		}
-		if rf.nextIndex[peer] > 1 {
-			rf.nextIndex[peer]--
-			PrettyDebug(dLog, "S%d (recv false) set S%d nextIndex=%d matchIndex=%d, will retry in next broadcast", rf.me, peer, rf.nextIndex[peer], rf.matchIndex[peer])
-		}
+		// if rf.nextIndex[peer] > 1 {
+		// 	rf.nextIndex[peer]--
+		// 	PrettyDebug(dLog, "S%d (recv false) set S%d nextIndex=%d matchIndex=%d, will retry in next broadcast", rf.me, peer, rf.nextIndex[peer], rf.matchIndex[peer])
+		// }
 	}
 }
