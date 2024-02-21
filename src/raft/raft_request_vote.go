@@ -37,7 +37,7 @@ func (rf *Raft) requestVoteHandler(cnt *Counter, args *RequestVoteArgs, peer int
 			PrettyDebug(dVote, "S%d receive higher term(%d > %d) from S%d", me, reply.Term, args.Term, peer)
 			if rf.state == CandidateState && rf.currentTerm == args.Term {
 				rf.updateTermPassively(reply.Term)
-				cnt.Clear()
+				// cnt.Clear()
 			} else {
 				PrettyDebug(dWarn, "S%d is not a candidate or in the new Term:%d, this won't affect", me, rf.currentTerm)
 			}
