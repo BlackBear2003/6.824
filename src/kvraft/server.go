@@ -68,19 +68,12 @@ func (kv *KVServer) setLastCommandReply(clientId, commandId int64, reply *ExecRe
 }
 
 // need Lock
-func (kv *KVServer) registerNotifyChan(index int) chan *ExecReply {
-	// 检查给定索引对应的通道是否已经存在
-	kv.notifyChans[index] = make(chan *ExecReply, 1)
-	return kv.notifyChans[index]
-}
-
 func (kv *KVServer) getNotifyChan(index int) chan *ExecReply {
+	// 检查给定索引对应的通道是否已经存在
+	if _, ok := kv.notifyChans[index]; !ok {
+		kv.notifyChans[index] = make(chan *ExecReply, 1)
+	}
 	return kv.notifyChans[index]
-}
-
-func (kv *KVServer) hasNotifyChan(index int) bool {
-	_, ok := kv.notifyChans[index]
-	return ok
 }
 
 func (kv *KVServer) deleteNotifyChan(index int) {
@@ -107,7 +100,7 @@ func (kv *KVServer) Exec(args *ExecArgs, reply *ExecReply) {
 		return
 	}
 	kv.mu.Lock()
-	ch := kv.registerNotifyChan(index)
+	ch := kv.getNotifyChan(index)
 	kv.mu.Unlock()
 	// 阻塞到收到消息
 	select {
@@ -172,10 +165,8 @@ func (kv *KVServer) notifier() {
 				// only notify related channel for currentTerm's log when node is leader
 				if _, isLeader := kv.rf.GetState(); isLeader {
 					kv.mu.Lock()
-					if kv.hasNotifyChan(msg.CommandIndex) {
-						ch := kv.getNotifyChan(msg.CommandIndex)
-						ch <- reply
-					}
+					ch := kv.getNotifyChan(msg.CommandIndex)
+					ch <- reply
 					kv.mu.Unlock()
 				}
 				kv.mu.Lock()
